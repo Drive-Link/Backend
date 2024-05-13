@@ -6,3 +6,6 @@ dockerfile
 .prettierrc
 package-lock.json
 .vscode
+.env
+
+important.txt
