@@ -5,3 +5,4 @@ docker-compose.yaml
 dockerfile
 .prettierrc
 package-lock.json
+.vscode
