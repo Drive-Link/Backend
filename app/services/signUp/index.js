@@ -1,10 +1,8 @@
 const db = require('../../models')
 const { schema } = require('./schema')
 
-
 const GetAllDriver = async function ({ firstName }) {
-  schema.validateAsync()
-  console.log(await db.Users.findAll())
+  await schema.validateAsync()
   return 'Hmmm.. Workinh'
 }
 
