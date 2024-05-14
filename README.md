@@ -2,7 +2,7 @@
 Backend application for Drivelink
 
 ```sh
-cd BACKEND/
+cd Backend/
 ```
 
 ```js
