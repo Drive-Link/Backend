@@ -11,7 +11,7 @@
     "http"
   ],
   "paths": {
-    "/api/v1/register/": {
+    "/api/v1/passenger/register/": {
       "post": {
         "description": "",
         "parameters": [
@@ -22,7 +22,7 @@
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "lastName": {
                   "example": "any"
@@ -30,7 +30,22 @@
                 "password": {
                   "example": "any"
                 },
+                "phoneNumber": {
+                  "example": "any"
+                },
                 "email": {
+                  "example": "any"
+                },
+                "country": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "state": {
+                  "example": "any"
+                },
+                "shortBoi": {
                   "example": "any"
                 }
               }

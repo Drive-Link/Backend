@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }))
 
 // #swagger.start
 app.use('/api-docs', swagger)
-app.use('/api/v1/register', register)
+app.use('/api/v1/passenger/register', register)
 app.use('/api/v1/login', login)
 
 module.exports = app
