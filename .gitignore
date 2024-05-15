@@ -9,3 +9,8 @@ package-lock.json
 .env
 
 important.txt
+bin/
+__pycache__
+swagger.py
+.dockerignore
+
