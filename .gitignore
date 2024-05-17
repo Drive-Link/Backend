@@ -14,3 +14,4 @@ __pycache__
 swagger.py
 .dockerignore
 
+render.yaml

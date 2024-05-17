@@ -21,6 +21,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+        index: true,
       },
       country: {
         type: Sequelize.STRING,
@@ -38,13 +39,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      shortBoi: {
+      shortBio: {
         type: Sequelize.STRING,
       },
       phoneNumber: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+        index: true,
       },
       createdAt: {
         allowNull: false,
