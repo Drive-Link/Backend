@@ -1,12 +1,13 @@
 const db = require('../../models')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const passangerSchema = require('../../../schemas/passangerSchema')
 
 const SavePassanger = async function ({
   firstName,
   phoneNumber,
-  shortBoi,
+  shortBio,
   city,
   lastName,
   state,
@@ -14,11 +15,12 @@ const SavePassanger = async function ({
   country,
   email,
 }) {
-  await passangerSchema.validateAsync({ firstName, lastName, password, email })
+  await passangerSchema.validateAsync({ firstName, lastName, phoneNumber, password, email })
+
   const salt = await bcrypt.genSalt(10)
   const passwordHashed = await bcrypt.hash(password, salt)
 
-  return await db.passengers.create({
+  await db.passengers.create({
     firstName,
     lastName,
     state,
@@ -26,9 +28,11 @@ const SavePassanger = async function ({
     phoneNumber,
     passwordHashed,
     city,
-    shortBoi,
+    shortBio,
     country,
   })
+  const access_token = jwt.sign({ email, country }, process.env.SECRET_KEY, { expiresIn: '20m' })
+  return access_token
 }
 
 const GetAllDriver = async function () {}

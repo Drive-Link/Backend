@@ -1,12 +1,12 @@
-const { SavePassanger } = require('../services/passangers/index')
+const { SavePassanger } = require('../services/passangers/register')
 
 const CreatePassanger = async function (request, response) {
-  const { firstName, lastName, password, phoneNumber, email, country, city, state, shortBoi } = request.body
+  const { firstName, lastName, password, phoneNumber, email, country, city, state, shortBio } = request.body
 
   try {
-    const res = await SavePassanger({
+    const access_token = await SavePassanger({
       firstName,
-      shortBoi,
+      shortBio,
       city,
       phoneNumber,
       lastName,
@@ -16,16 +16,16 @@ const CreatePassanger = async function (request, response) {
       email,
     })
 
-    response.status(201).send({ code: 201, message: 'Passanger Created' })
+    response.status(201).json({ code: 201, access_token })
   } catch (err) {
-    const message = err.errors[0].message
+    const message = err.details?.[0].message || err?.errors?.[0].message
 
-    response.status(400).send({ code: 400, status: 'Bad Request', message })
+    response.status(422).json({ code: 422, status: 'Bad Request', message })
   }
 }
 
 const GetAllUserFromDatabase = async function (request, response) {
-  response.status(200).send({ message: 'User not found' })
+  response.status(200).json({ message: 'User not found' })
 }
 
 module.exports = { CreatePassanger, GetAllUserFromDatabase }
