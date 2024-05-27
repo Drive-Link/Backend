@@ -1,6 +1,6 @@
-const { SavePassanger } = require('../services/passengers/register')
-const { LoginPassenger } = require('../services/passengers/login')
-const { ResetPassword } = require('../services/passengers/resetPassword')
+const { SavePassanger } = require('../../services/passengers/register')
+const { LoginPassenger } = require('../../services/passengers/login')
+const { ResetPassword } = require('../../services/passengers/resetPassword')
 
 const CreatePassanger = async function (request, response) {
   const { firstName, lastName, password, phoneNumber, email, country, city, state, shortBio } = request.body
@@ -32,18 +32,18 @@ const CreatePassanger = async function (request, response) {
 const LoginPassengerIn = async function (request, response) {
   const { email = '', password, phoneNumber = '' } = request.body
   try {
-    const result = LoginPassenger({ email, phoneNumber, password })
+    const result = await LoginPassenger({ email, phoneNumber, password })
 
-    response.status(200).json(await result)
+    response.status(200).json(result)
   } catch (err) {
     response.status(401).json({ code: 401, status: 'Unauthorized', message: 'Invalid email or password' })
   }
 }
 
 const ResetPassengersPassword = async function (request, response) {
-  const { email } = request.body
+  const { email, phoneNumber = '' } = request.body
   try {
-    const result = await ResetPassword({ email })
+    const result = await ResetPassword({ email, phoneNumber })
     console.log(result)
     response.status(200).json({ message: 'tofo' })
   } catch (err) {}

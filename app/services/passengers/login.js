@@ -18,13 +18,17 @@ const LoginPassenger = async ({ email = '', phoneNumber = '', password }) => {
     attributes: ['passwordhashed', 'email', 'city', 'phoneNumber'],
   })
 
-  const expiresIn = '90d'
+  const expiresIn = '1d'
 
   // check password
   if (await bcrypt.compare(password, passwordhashed)) {
-    const access_token = jwt.sign({ customerEmail, customerPhoneNumber, city }, process.env.SECRET_KEY, {
-      expiresIn,
-    })
+    const access_token = jwt.sign(
+      { role: 'passenger', customerEmail, customerPhoneNumber, city },
+      process.env.SECRET_KEY,
+      {
+        expiresIn,
+      },
+    )
 
     return { message: 'Auth success!', expiresIn, access_token }
   } else {

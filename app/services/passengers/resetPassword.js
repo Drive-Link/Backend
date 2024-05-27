@@ -13,9 +13,7 @@ const ResetPassword = async function ({ email }) {
       dataValues: { email: customer_email, city, firstName, lastName },
     } = await db.passengers.findOne({ where: { email }, attributes: ['city', 'firstName', 'lastName', 'email'] })
 
-    console.log(jwt.sign({ customer_email, city, firstName, lastName }, process.env.SECRET_KEY, { expiresIn: '10m' }))
-  } else {
-    console.log('User not found!')
+    const token = jwt.sign({ customer_email, city, firstName, lastName }, process.env.SECRET_KEY, { expiresIn: '10m' })
   }
 
   return { message: 'check email for further procedure' }
