@@ -16,3 +16,4 @@ swagger.py
 
 render.yaml
 .DS_Store
+supabase
