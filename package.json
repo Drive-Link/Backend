@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "generate": "node swaggerAutoGen.js",
+    "generate-model": "npx sequelize-cli model:generate --name",
     "up": "npx sequelize-cli db:migrate",
     "undo": "npx sequelize-cli db:migrate:undo",
     "migrate": "npx sequelize-cli migration:generate --name",

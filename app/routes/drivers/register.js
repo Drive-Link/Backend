@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const { CreateDriver } = require('../../controllers/drivers/driverAuths')
 
-router.post('/', async (request, response) => {})
+router.post('/', CreateDriver)
 
 module.exports = router

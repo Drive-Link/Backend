@@ -18,8 +18,9 @@ const CreatePassanger = async function (request, response) {
       email,
     })
 
-    response.status(201).json({ code: 201, status: 'success', message: 'Passengers created!' })
+    response.status(201).json({ code: 201, status: 'success', message: 'passengers created!' })
   } catch (err) {
+    console.log(err)
     let message = err.details?.[0].message || err?.errors?.[0].message
     message = message.replaceAll('"', '')
 
@@ -30,10 +31,10 @@ const CreatePassanger = async function (request, response) {
 }
 
 const LoginPassengerIn = async function (request, response) {
-  const { email = '', password, phoneNumber = '' } = request.body
+  const { email, password } = request.body
   try {
-    const result = await LoginPassenger({ email, phoneNumber, password })
-
+    const result = await LoginPassenger({ email, password })
+    console.log(result)
     response.status(200).json(result)
   } catch (err) {
     response.status(401).json({ code: 401, status: 'Unauthorized', message: 'Invalid email or password' })
@@ -45,8 +46,11 @@ const ResetPassengersPassword = async function (request, response) {
   try {
     const result = await ResetPassword({ email, phoneNumber })
     console.log(result)
-    response.status(200).json({ message: 'tofo' })
-  } catch (err) {}
+    response.status(200).json({ message: 'todo' })
+  } catch (err) {
+    console.log(err)
+    response.status(401).json({ message: 'Unauthorized' })
+  }
 }
 
 module.exports = { CreatePassanger, LoginPassengerIn, ResetPassengersPassword }
