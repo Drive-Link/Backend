@@ -1,4 +1,4 @@
-const db = require('../../models')
+const { passengers, PassengersProfile } = require('../../models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
@@ -10,27 +10,44 @@ const bcrypt = require('bcryptjs')
  * @returns {Promise<access_token>}  - Auth success or failed
  */
 
-const LoginPassenger = async ({ email = '', phoneNumber = '', password }) => {
-  const {
-    dataValues: { passwordhashed, email: customerEmail, phoneNumber: customerPhoneNumber, city },
-  } = await db.passengers.findOne({
-    where: email === '' ? { phoneNumber } : { email },
-    attributes: ['passwordhashed', 'email', 'city', 'phoneNumber'],
+const LoginPassenger = async ({ email, password }) => {
+  const profile = await passengers.findOne({
+    where: { email },
+    attributes: ['hash', 'email', 'city', 'phoneNumber', 'id'],
   })
 
-  const expiresIn = '1d'
+  const {
+    hash,
+    email: customerEmail,
+    phoneNumber,
+    city,
+    id: user_id,
+  } = (
+    await passengers.findOne({
+      where: { email },
+      attributes: ['hash', 'email', 'city', 'phoneNumber', 'id'],
+    })
+  ).toJSON()
+
+  const expiresIn = '10m'
 
   // check password
-  if (await bcrypt.compare(password, passwordhashed)) {
+  if (await bcrypt.compare(password, hash)) {
     const access_token = jwt.sign(
-      { role: 'passenger', customerEmail, customerPhoneNumber, city },
+      { role: 'passenger', customerEmail, user_id, phoneNumber, city },
       process.env.SECRET_KEY,
       {
         expiresIn,
       },
     )
 
-    return { message: 'Auth success!', expiresIn, access_token }
+    return {
+      message: 'Login Successful',
+      data: {
+        user: { user_id, email, phoneNumber, role: 'passenger', access_token },
+      },
+      status: true,
+    }
   } else {
     throw new Error('Invalid password or email')
   }

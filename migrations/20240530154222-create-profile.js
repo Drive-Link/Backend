@@ -2,52 +2,46 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('passengers', {
+    await queryInterface.createTable('profiles', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      firstName: {
+      isVerified: {
         type: Sequelize.STRING,
-        allowNull: false,
+        defaultValue: 'false',
       },
-      lastName: {
+      profilePicture: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
-      email: {
+      referralCode: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-        index: true,
-      },
-      country: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      state: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      city: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      passwordHashed: {
-        type: Sequelize.STRING,
-        allowNull: false,
       },
       shortBio: {
         type: Sequelize.STRING,
       },
-      phoneNumber: {
+      role: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-        index: true,
       },
+      passengerId: {
+        unique: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'passengers',
+          key: 'id',
+        },
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
+      },
+      // driverId: {
+      //   type: Sequelize.INTEGER,
+      //   references: {
+      //     model: 'drivers',
+      //     key: 'id',
+      //   },
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -59,6 +53,6 @@ module.exports = {
     })
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('passengers')
+    await queryInterface.dropTable('profiles')
   },
 }

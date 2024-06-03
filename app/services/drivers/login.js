@@ -1,6 +1,8 @@
-const db = require('../../models')
+const { drivers } = require('../../models')
 const jwt = require('jsonwebtoken')
 
-const LoginDriver = async function ({ email, phoneNumber, password }) {}
+const LoginDriverIn = async function ({ email, phoneNumber, password }) {
+    
+}
 
-module.exports = LoginDriver
+module.exports = LoginDriverIn

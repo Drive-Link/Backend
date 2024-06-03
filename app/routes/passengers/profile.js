@@ -1,30 +1,29 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../../models')
-const checkAuth = require('../../middleware/checkAuth')
+const { passengers } = require('../../models')
+const checkAuth = require('../../middleware/auths')
 const jwt = require('jsonwebtoken')
 
 router.get('/', checkAuth, async (request, response) => {
   try {
-    const [bearer, token] = request.headers.authorization.split(' ')
+    const [_, token] = request.headers.authorization.split(' ')
 
-    const payload = jwt.decode(token, process.env.SECRET_KEY, (error, payload) => {
-      return 'k'
+    const { id, email } = jwt.decode(token, process.env.SECRET_KEY)
+    console.log(jwt.decode(token, process.env.SECRET_KEY))
+    // console.log(customerEmail)
+
+    const profile = await passengers.findOne({
+      where: { email },
+      attributes: ['email', 'phoneNumber', 'city', 'lastName', 'firstName', 'id'],
     })
 
-    console.log(payload)
-
-    console.log(
-      await db.passengers.findOne({
-        where: { email: 's' },
-        attributes: ['email'],
-      }),
-    )
-
-    response.status(200).json({ message: '' })
-  } catch (err) {
-    response.status(401).json({ code: 401, status: 'failed', message: 'Unauthorized' })
+    response.status(200).json(profile)
+  } catch (error) {
+    console.error(error)
+    response.status(401).json({ message: 'Unauthorized', status: false })
   }
 })
+
+router.post('/', checkAuth, async (request, response) => {})
 
 module.exports = router
