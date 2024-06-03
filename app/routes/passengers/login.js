@@ -1,9 +1,9 @@
 const express = require('express')
 
-const { LoginPassengerIn } = require('../../controllers/passengers/passengerAuths')
+const LoginPassengerIn = require('../../controllers/passengers/login')
 
 const router = express.Router()
 
-router.post('/', LoginPassengerIn)
+router.patch('/', LoginPassengerIn)
 
 module.exports = router

@@ -9,7 +9,7 @@ const passengerLogin = require('./app/routes/passengers/login')
 const driverRegister = require('./app/routes/drivers/register')
 const resetPassword = require('./app/routes/passengers/resetPassword')
 const passengerProfile = require('./app/routes/passengers/profile')
-const passengerUpload = require('./app/routes/passengers/imgaeUpload')
+const passengerUpload = require('./app/routes/passengers/uploads')
 const carDetails = require('./app/routes/passengers/carDetails')
 
 const auth = async () => {

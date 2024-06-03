@@ -15,7 +15,7 @@ const LoginPassenger = async ({ email, password }) => {
     where: { email },
     attributes: ['hash', 'email', 'city', 'phoneNumber', 'id'],
   })
-  console.log((await profile.getProfile()).toJSON())
+
   const {
     hash,
     email: customerEmail,
@@ -29,7 +29,7 @@ const LoginPassenger = async ({ email, password }) => {
     })
   ).toJSON()
 
-  const expiresIn = '1d'
+  const expiresIn = '10m'
 
   // check password
   if (await bcrypt.compare(password, hash)) {
@@ -46,7 +46,7 @@ const LoginPassenger = async ({ email, password }) => {
       data: {
         user: { user_id, email, phoneNumber, role: 'passenger', access_token },
       },
-      status: 'success',
+      status: true,
     }
   } else {
     throw new Error('Invalid password or email')

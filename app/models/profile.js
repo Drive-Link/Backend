@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       profile.belongsTo(models.passengers, { foreignKey: 'passengerId' })
+      profile.hasMany(models.cars, { foreignKey: 'profileId' })
+      profile.hasMany(models.trustedbuddy, { foreignKey: 'profileId' })
+      profile.hasOne(models.card, { foreignKey: 'profileId' })
     }
   }
   profile.init(
@@ -18,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       referralCode: DataTypes.STRING,
       profilePicture: DataTypes.STRING,
       shortBio: DataTypes.STRING,
+      passengerId: DataTypes.INTEGER,
       role: DataTypes.STRING,
     },
     {

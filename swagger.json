@@ -11,6 +11,16 @@
     "http"
   ],
   "paths": {
+    "/api-docs/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/v1/passenger/register/": {
       "post": {
         "description": "",
@@ -93,7 +103,7 @@
       }
     },
     "/api/v1/passenger/login/": {
-      "post": {
+      "patch": {
         "description": "",
         "parameters": [
           {
@@ -123,7 +133,7 @@
       }
     },
     "/api/v1/driver/login/": {
-      "post": {
+      "patch": {
         "description": "",
         "parameters": [
           {
@@ -205,6 +215,21 @@
             "description": "Unauthorized"
           }
         }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
       }
     },
     "/api/v1/driver/register/": {
@@ -252,6 +277,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }

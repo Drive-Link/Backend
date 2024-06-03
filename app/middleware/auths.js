@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken')
 
-const checkAuth = async (request, response, next) => {
+module.exports = async (request, response, next) => {
   if (!request.headers || !request.headers.authorization) {
-    response.status(401).json({ code: 401, status: 'Unauthorized', message: 'Access denied' })
+    response.status(401).json({ message: 'Access denied', status: false })
   } else {
     const [bearer, jwtKey] = request.headers.authorization.split(' ')
     const error = jwt.verify(jwtKey, process.env.SECRET_KEY, (error, _) => {
@@ -10,14 +10,11 @@ const checkAuth = async (request, response, next) => {
     })
     if (bearer !== 'Bearer' || error) {
       response.status(401).json({
-        code: 401,
-        status: 'Unauthorized',
         message: error.message.includes('expired') ? 'Token expired' : 'Invalid token',
+        status: false,
       })
     } else {
       next()
     }
   }
 }
-
-module.exports = checkAuth

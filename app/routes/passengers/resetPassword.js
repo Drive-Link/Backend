@@ -1,6 +1,6 @@
 const express = require('express')
 const checkAuth = require('../../middleware/auths')
-const { ResetPassengersPassword } = require('../../controllers/passengers/passengerAuths')
+const ResetPassengersPassword = require('../../controllers/passengers/resetPassword')
 
 const router = express.Router()
 
