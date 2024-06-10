@@ -1,9 +1,9 @@
-const status = require('@adedayomatthews/proxy-manager/src/constants/status')
+const { LinkshorteningMessagingServiceContextImpl } = require('twilio/lib/rest/messaging/v1/linkshorteningMessagingService')
 const { SavePassanger } = require('../../services/passengers/register')
 const jwt = require('jsonwebtoken')
 
 const CreatePassanger = async function (request, response) {
-  const { firstName, lastName, password, phoneNumber, email, country, city, state, shortBio } = request.body
+  const { firstName, lastName, password, phoneNumber, email, country, city, state } = request.body
 
   try {
     const {
@@ -13,7 +13,6 @@ const CreatePassanger = async function (request, response) {
     } = (
       await SavePassanger({
         firstName,
-        shortBio,
         city,
         phoneNumber,
         lastName,
@@ -36,9 +35,9 @@ const CreatePassanger = async function (request, response) {
     message = message.replaceAll('"', '')
 
     const hint = message.includes('unique')
-      ? response.status(401).json({ status: false, message, hint })
+      ? response.status(401).json({ status: false, message: 'phoneNumber or email taken' })
       : response.status(401).json({ status: false, message })
-    // response.status(401).json({ status: false, hint })
+
     return hint
   }
 }

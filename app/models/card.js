@@ -18,10 +18,21 @@ module.exports = (sequelize, DataTypes) => {
       expiryDate: DataTypes.DATE,
       cvv: DataTypes.INTEGER,
       profileId: DataTypes.INTEGER,
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
     },
     {
       sequelize,
       modelName: 'card',
+      timestamps: true,
     },
   )
   return card

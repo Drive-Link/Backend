@@ -16,3 +16,4 @@ render.yaml
 .DS_Store
 supabase
 .eraserdiagram
+payload.json

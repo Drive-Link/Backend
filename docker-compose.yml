@@ -8,7 +8,7 @@ services:
 
     container_name: mysqldb-drivelink
     ports:
-      - "3306:3306"
+      - "3306:3307"
   app:
     build:
       context: ./
