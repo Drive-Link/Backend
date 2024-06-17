@@ -1,4 +1,6 @@
-const { LinkshorteningMessagingServiceContextImpl } = require('twilio/lib/rest/messaging/v1/linkshorteningMessagingService')
+const {
+  LinkshorteningMessagingServiceContextImpl,
+} = require('twilio/lib/rest/messaging/v1/linkshorteningMessagingService')
 const { SavePassanger } = require('../../services/passengers/register')
 const jwt = require('jsonwebtoken')
 
@@ -31,6 +33,7 @@ const CreatePassanger = async function (request, response) {
       .status(201)
       .json({ status: true, message: 'passengers created!', data: { user: { userId, email, role } }, access_token })
   } catch (err) {
+    console.log(err)
     let message = err.details?.[0].message || err?.errors?.[0].message
     message = message.replaceAll('"', '')
 

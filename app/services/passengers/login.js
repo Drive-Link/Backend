@@ -1,4 +1,4 @@
-const { passengers, PassengersProfile } = require('../../models')
+const { passengers } = require('../../models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
@@ -11,17 +11,12 @@ const bcrypt = require('bcryptjs')
  */
 
 const LoginPassenger = async ({ email, password }) => {
-  const profile = await passengers.findOne({
-    where: { email },
-    attributes: ['hash', 'email', 'city', 'phoneNumber', 'id'],
-  })
-
   const {
     hash,
-    email: customerEmail,
+    email: customer_email,
     phoneNumber,
     city,
-    id: user_id,
+    id: userId,
   } = (
     await passengers.findOne({
       where: { email },
@@ -33,18 +28,14 @@ const LoginPassenger = async ({ email, password }) => {
 
   // check password
   if (await bcrypt.compare(password, hash)) {
-    const access_token = jwt.sign(
-      { role: 'passenger', customerEmail, user_id, phoneNumber, city },
-      process.env.SECRET_KEY,
-      {
-        expiresIn,
-      },
-    )
+    const access_token = jwt.sign({ role: 'passenger', email, userId, phoneNumber, city }, process.env.SECRET_KEY, {
+      expiresIn,
+    })
 
     return {
       message: 'Login Successful',
       data: {
-        user: { user_id, email, phoneNumber, role: 'passenger', access_token },
+        user: { userId, email, phoneNumber, role: 'passenger', access_token },
       },
       status: true,
     }

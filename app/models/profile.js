@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       profilePicture: DataTypes.STRING,
       shortBio: DataTypes.STRING,
       passengerId: DataTypes.INTEGER,
-      // driverId: DataTypes.INTEGER,
+
       role: DataTypes.STRING,
       createdAt: {
         allowNull: false,

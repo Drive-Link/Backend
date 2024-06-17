@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       expiryDate: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
       },
       cvv: {
         type: Sequelize.INTEGER,
@@ -25,6 +25,8 @@ module.exports = {
           model: 'profiles',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
