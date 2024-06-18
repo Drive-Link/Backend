@@ -1,12 +1,33 @@
-const { drivers } = require('../../models')
+const { driver } = require('../../models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
-const CreateAndSaveDriver = async function ({ email, phoneNumber, password = 'o', city, country, state }) {
+const CreateAndSaveDriver = async ({
+  email,
+  phoneNumber,
+  firstName,
+  lastName,
+  shortBio,
+  password,
+  city,
+  country,
+  state,
+}) => {
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
-  console.log(drivers)
-  return { message: 'okay' }
+
+  const newDriver = await driver.create({
+    email,
+    firstName,
+    lastName,
+    phoneNumber,
+    shortBio,
+    hash,
+    city,
+    country,
+    state,
+  })
+  return newDriver
 }
 
 module.exports = CreateAndSaveDriver

@@ -1,11 +1,23 @@
 const { LoginDriverIn } = require('../../services/drivers/login')
 const CreateAndSaveDriver = require('../../services/drivers/register')
 
+// TODO - create drivers
 const CreateDriver = async (request, response) => {
-  // TODO - create drivers
   try {
-    const { email, city, country, state, phoneNumber } = request.body
-    const result = await CreateAndSaveDriver({ email, phoneNumber, city })
+    const { email, city, country, state, shortBio, password, phoneNumber, lastName, firstName } = request.body
+    const result = await CreateAndSaveDriver({
+      email,
+      phoneNumber,
+      password,
+      shortBio,
+      country,
+      state,
+      lastName,
+      firstName,
+      city,
+    })
+    console.log(result)
+
     response.status(200).json({ message: 'okay' })
   } catch (error) {
     response.status(400).json({ code: 400, status: 'Bad Request', message: error.message })

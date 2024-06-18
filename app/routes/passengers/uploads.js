@@ -1,46 +1,45 @@
+// routes/upload.js
 const express = require('express')
-const multer = require('multer')
-const { createClient } = require('@supabase/supabase-js')
-
 const router = express.Router()
+const cloudinary = require('../../config/cloudinary')
+const multer = require('multer')
+const { passengers, drivers } = require('../../models')
 
-// Initialize supabase
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY)
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    console.log(file)
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, new Date().toISOString() + file.originalname)
+  },
+})
 
-const storage = multer.memoryStorage()
-const upload = multer({ storage: storage })
+const upload = multer({ storage })
 
-router.post('/', upload.single('file'), async (req, res) => {
+router.post('/', upload.single('file'), async (request, response) => {
+  console.log(request.file)
   try {
-    const { userId } = req.body // Assuming userId is sent in the body
-    const file = req.file
+    const userPassenger = await passengers.findOne({ where: { id: 1 } })
+    const userPassengerProfile = await userPassenger.getProfile()
+    userPassengerProfile.profilePicture = 'oaplokka'
+    await userPassengerProfile.save()
+    // console.log(await userPassengerProfile.destroy())
 
-    if (!file) {
-      return res.status(400).send('No file uploaded.')
-    }
-
-    const fileName = `${userId}/${Date.now()}_${file.originalname}`
-    console.log(file.buffer)
-
-    const { data, error } = await supabase.storage
-      .from('ecommerce') // Replace with your Supabase storage bucket name
-      .upload(fileName, file.buffer)
-
-    if (error) {
-      console.log(error)
-      return res.status(500).send(error)
-    }
-
-    const { publicURL, error: urlError } = supabase.storage.from('ecommerce').getPublicUrl(fileName)
-
-    if (urlError) {
-      return res.status(500).send(urlError.message)
-    }
-
-    res.status(200).json({ fileURL: publicURL, userId: userId })
+    response.status(201).json({ message: 'Uploaded file successfully' })
   } catch (error) {
-    res.status(500).send(error.message)
+    console.error('Upload error:', error) // Log the error
+    response.status(500).json({
+      message: 'Failed to upload image',
+      error: error.message,
+    })
   }
+})
+
+router.get('/:imagepath', async (request, response) => {
+  console.log(request.params)
+  // response.status(200).sendFile('../../../uploads/615f770f13f08e03b0cb8322ae786835.jpg')
+  response.st
 })
 
 module.exports = router

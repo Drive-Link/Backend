@@ -11,6 +11,8 @@ const resetPassword = require('./app/routes/passengers/resetPassword')
 const passengerProfile = require('./app/routes/passengers/profile')
 const passengerUpload = require('./app/routes/passengers/uploads')
 const carDetails = require('./app/routes/passengers/carDetails')
+const passengerHome = require('./app/routes/passengers/home')
+const driverProfile = require('./app/routes/drivers/profile')
 
 const auth = async () => {
   try {
@@ -34,8 +36,10 @@ app.use('/api/v1/passenger/upload', passengerUpload)
 app.use('/api/v1/passenger/login', passengerLogin)
 app.use('/api/v1/driver/login', passengerLogin)
 app.use('/api/v1/passenger/reset_password', resetPassword)
-app.use('/api/v1/passengers', passengerProfile)
+app.use('/api/v1/passengers/profile', passengerProfile)
 app.use('/api/v1/driver/register', driverRegister)
-app.use('/api/v1/car', carDetails)
+app.use('/api/v1/passenger', carDetails)
+app.use('/api/v1/driver/profile', driverProfile)
+app.use('/api/v1/passengers/home', passengerHome)
 
 module.exports = app

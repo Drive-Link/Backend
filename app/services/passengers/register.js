@@ -4,12 +4,17 @@ const jwt = require('jsonwebtoken')
 const passangerSchema = require('../../../schemas/passangerSchema')
 
 const SavePassanger = async function ({ firstName, phoneNumber, city, lastName, state, password, country, email }) {
+  // Validate input
   await passangerSchema.validateAsync({ firstName, lastName, phoneNumber, password, email })
 
-  const salt = await bcrypt.genSalt(11)
-  const hash = await bcrypt.hash(password, salt)
+  // Generate salt and hash password in parallel
+  const saltRounds = 10 // Adjust this value based on your security needs
+  const [salt, hash] = await Promise.all([
+    bcrypt.genSalt(saltRounds),
+    bcrypt.hash(password, bcrypt.genSaltSync(saltRounds)),
+  ])
 
-  // const referralCode = generateReferralCode(7)
+  // Create passenger
   const result = await passengers.create({
     firstName,
     lastName,

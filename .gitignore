@@ -17,3 +17,5 @@ render.yaml
 supabase
 .eraserdiagram
 payload.json
+schema.sql
+uploads

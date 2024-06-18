@@ -11,7 +11,6 @@ module.exports = {
       },
       carName: {
         type: Sequelize.STRING,
-        unique: true,
       },
       carBrand: {
         type: Sequelize.STRING,

@@ -62,29 +62,30 @@
     "/api/v1/passenger/upload/": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
+          "201": {
+            "description": "Created"
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/passenger/upload/{imagepath}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "imagepath",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }
@@ -184,7 +185,7 @@
         }
       }
     },
-    "/api/v1/passengers/": {
+    "/api/v1/passengers/profile/": {
       "get": {
         "description": "",
         "parameters": [
@@ -244,6 +245,42 @@
             "description": "Unauthorized"
           }
         }
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                },
+                "scope": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
       }
     },
     "/api/v1/driver/register/": {
@@ -268,7 +305,19 @@
                 "state": {
                   "example": "any"
                 },
+                "shortBio": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                },
                 "phoneNumber": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "firstName": {
                   "example": "any"
                 }
               }
@@ -285,12 +334,112 @@
         }
       }
     },
-    "/api/v1/car/": {
+    "/api/v1/passenger/{getDetails}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "getDetails",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/passenger/{newDetails}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "newDetails",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/passenger/{deleteDetails}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "deleteDetails",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/driver/profile/": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
       "get": {
         "description": "",
         "responses": {
           "default": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/passengers/home/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         }
       }
