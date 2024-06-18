@@ -19,10 +19,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       plateNumber: DataTypes.STRING,
       profileId: DataTypes.INTEGER,
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
     },
     {
       sequelize,
       modelName: 'cars',
+      timestamps: true,
     },
   )
   return cars

@@ -4,6 +4,6 @@ const LoginPassengerIn = require('../../controllers/passengers/login')
 
 const router = express.Router()
 
-router.patch('/', LoginPassengerIn)
+router.post('/', LoginPassengerIn)
 
 module.exports = router

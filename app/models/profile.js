@@ -22,11 +22,23 @@ module.exports = (sequelize, DataTypes) => {
       profilePicture: DataTypes.STRING,
       shortBio: DataTypes.STRING,
       passengerId: DataTypes.INTEGER,
+      // driverId: DataTypes.INTEGER,
       role: DataTypes.STRING,
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
     },
     {
       sequelize,
       modelName: 'profile',
+      timestamps: true,
     },
   )
   return profile

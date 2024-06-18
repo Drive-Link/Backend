@@ -4,7 +4,7 @@ const swaggerGenerate = require('./swagger.json')
 
 const router = express.Router()
 
-router.get(
+router.use(
   '/',
   swaggerUi.serve,
   swaggerUi.setup(swaggerGenerate, { customCss: '.swagger-ui .topbar { display: none; }' }),

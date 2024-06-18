@@ -11,16 +11,6 @@
     "http"
   ],
   "paths": {
-    "/api-docs/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/api/v1/passenger/register/": {
       "post": {
         "description": "",
@@ -53,9 +43,6 @@
                   "example": "any"
                 },
                 "state": {
-                  "example": "any"
-                },
-                "shortBio": {
                   "example": "any"
                 }
               }
@@ -103,7 +90,7 @@
       }
     },
     "/api/v1/passenger/login/": {
-      "patch": {
+      "post": {
         "description": "",
         "parameters": [
           {
@@ -133,7 +120,7 @@
       }
     },
     "/api/v1/driver/login/": {
-      "patch": {
+      "post": {
         "description": "",
         "parameters": [
           {
@@ -223,9 +210,36 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "Cars": {
+                  "example": "any"
+                },
+                "TrustedBuddies": {
+                  "example": "any"
+                },
+                "Card": {
+                  "example": "any"
+                },
+                "shortBio": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
           "401": {
             "description": "Unauthorized"
           }
@@ -275,11 +289,8 @@
       "get": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
+          "default": {
+            "description": ""
           }
         }
       }
