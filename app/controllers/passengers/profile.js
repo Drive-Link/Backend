@@ -7,7 +7,6 @@ const GetPassengerProfile = async (request, response) => {
   try {
     const token = request.headers.authorization.split(' ')[1]
     const { email } = jwt.decode(token, process.env.SECRET_KEY)
-    console.log(jwt.decode(token, process.env.SECRET_KEY))
 
     const passenger = await userPassenger({ email })
 

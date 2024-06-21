@@ -1,5 +1,7 @@
 const { driver } = require('../../models')
 const jwt = require('jsonwebtoken')
+const referralGenerator = require('../../utils/generateReferralCode')
+
 const bcrypt = require('bcryptjs')
 
 const CreateAndSaveDriver = async ({
@@ -27,7 +29,8 @@ const CreateAndSaveDriver = async ({
     country,
     state,
   })
-  return newDriver
+  await newDriver.createDriverProfile()
+  return newDriver.toJSON()
 }
 
 module.exports = CreateAndSaveDriver
