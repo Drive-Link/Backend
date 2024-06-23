@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   driverLicense.init(
     {
-      isVerified: DataTypes.BOOLEAN,
+      isVerified: DataTypes.STRING,
       driverProfileId: DataTypes.INTEGER,
       pictureFront: DataTypes.STRING,
       pictureBack: DataTypes.STRING,

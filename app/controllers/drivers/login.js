@@ -5,10 +5,10 @@ const LoginDriver = async (request, response) => {
   try {
     const { email, password } = request.body
     const result = await LoginDriverIn({ email, password })
-    response.status(200).json({ result })
+    return response.status(200).json({ result })
   } catch (error) {
     console.log(error)
-    response.status(401).json({ messqge: 'okay' })
+    return response.status(401).json({ messqge: 'okay' })
   }
 }
 

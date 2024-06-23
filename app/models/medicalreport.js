@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   medicalReport.init(
     {
-      isVerified: DataTypes.BOOLEAN,
+      isVerified: DataTypes.STRING,
       driverProfileId: DataTypes.INTEGER,
       documentFile: DataTypes.STRING,
     },

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   identificationCard.init(
     {
-      isVerified: DataTypes.BOOLEAN,
+      isVerified: DataTypes.STRING,
       driverProfileId: DataTypes.INTEGER,
       identificationCardBack: DataTypes.STRING,
       identificationCardFront: DataTypes.STRING,

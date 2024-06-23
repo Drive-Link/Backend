@@ -17,7 +17,7 @@ const upload = multer({
     const mimetype = filetypes.test(file.mimetype)
 
     if (mimetype) {
-      cb(null, true)
+      cb(null, false)
     } else {
       cb(null, false)
     }

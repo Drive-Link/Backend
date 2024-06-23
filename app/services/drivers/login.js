@@ -7,7 +7,8 @@ const LoginDriverIn = async function ({ email, password }) {
     where: { email },
     attributes: ['email', 'id', 'city', 'phoneNumber', 'hash'],
   })
-  const userDriverProfile = await userDriver.getDriverProfile()
+
+  // const userDriverProfile = await userDriver.getDriverProfile()
 
   const { hash, email: driverEmail, city, phoneNumber, id: userId } = userDriver.toJSON()
 
@@ -15,6 +16,7 @@ const LoginDriverIn = async function ({ email, password }) {
     const accessToken = jwt.sign({ role: 'driver', email, userId, phoneNumber }, process.env.SECRET_KEY, {
       expiresIn: '90d',
     })
+
     return {
       message: 'Login successful',
       data: {

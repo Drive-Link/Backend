@@ -1,6 +1,3 @@
-const express = require('express')
-const router = express.Router()
+const { driver } = require('../../models')
 
-router.post('/', )
-
-module.exports = router
+module.exports = {}

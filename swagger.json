@@ -59,7 +59,7 @@
         }
       }
     },
-    "/api/v1/{role}/upload/multiple": {
+    "/api/v1/{role}/upload": {
       "post": {
         "description": "",
         "parameters": [
@@ -78,9 +78,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "201": {
-            "description": "Created"
           },
           "400": {
             "description": "Bad Request"
@@ -509,6 +506,13 @@
       },
       "get": {
         "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -532,6 +536,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "403": {
             "description": "Forbidden"

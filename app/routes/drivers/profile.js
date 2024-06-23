@@ -5,5 +5,5 @@ const driveProfile = require('../../controllers/drivers/profile')
 router.post('/', driveProfile.CreateDriverProfile)
 
 router.get('/', driveProfile.GetDriverProfile)
-
+ 
 module.exports = router

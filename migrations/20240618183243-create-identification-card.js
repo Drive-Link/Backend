@@ -10,7 +10,9 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       isVerified: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
+        defaultValue: 'false',
+        allowNull: false,
       },
       driverProfileId: {
         type: Sequelize.INTEGER,
@@ -24,10 +26,10 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       },
-      pictureBack: {
+      identificationCardFront: {
         type: Sequelize.STRING,
       },
-      pictureFront: {
+      identificationCardBack: {
         type: Sequelize.STRING,
       },
       createdAt: {

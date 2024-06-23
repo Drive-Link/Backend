@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       isVerified: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
+        defaultValue: 'false',
       },
       driverProfileId: {
         type: Sequelize.INTEGER,
