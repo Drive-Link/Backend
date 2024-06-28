@@ -11,31 +11,25 @@ const bcrypt = require('bcryptjs')
  */
 
 const LoginPassenger = async ({ email, password }) => {
-  const {
-    hash,
-    email: customer_email,
-    phoneNumber,
-    city,
-    id: userId,
-  } = (
-    await passengers.findOne({
-      where: { email },
-      attributes: ['hash', 'email', 'city', 'phoneNumber', 'id'],
-    })
-  ).toJSON()
+  const userPassenger = await passengers.findOne({
+    where: { email },
+    attributes: ['hash', 'email', 'city', 'phoneNumber', 'id'],
+  })
+  const { hash, email: customer_email, phoneNumber, city, id: userId } = userPassenger.toJSON()
 
-  const expiresIn = '10m'
+  const expiresIn = '90d'
 
   // check password
   if (await bcrypt.compare(password, hash)) {
-    const access_token = jwt.sign({ role: 'passenger', email, userId, phoneNumber, city }, process.env.SECRET_KEY, {
+    const payload = { userId, email, phoneNumber, role: 'passenger' }
+    const accessToken = jwt.sign({ role: 'passenger', email, userId, phoneNumber, city }, process.env.SECRET_KEY, {
       expiresIn,
     })
 
     return {
       message: 'Login Successful',
       data: {
-        user: { userId, email, phoneNumber, role: 'passenger', access_token },
+        user: { ...payload, accessToken },
       },
       status: true,
     }

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // driver.hasOne(models.profile, { foreignKey: 'driverId' })
+      driver.hasOne(models.driverProfile, { foreignKey: 'driverId' })
     }
   }
   driver.init(

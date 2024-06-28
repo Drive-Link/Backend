@@ -6,8 +6,7 @@ const generateToken = require('../../utils/generateReferralCode')
 const GetPassengerProfile = async (request, response) => {
   try {
     const token = request.headers.authorization.split(' ')[1]
-    const { email } = jwt.decode(token, process.env.SECRET_KEY)
-    console.log(jwt.decode(token, process.env.SECRET_KEY))
+    const { email, scope } = jwt.decode(token, process.env.SECRET_KEY)
 
     const passenger = await userPassenger({ email })
 
@@ -36,18 +35,16 @@ const CreateProfile = async (request, response) => {
       referralCode: generateToken(7),
     })
 
-    // const profile = await passenger.getProfile({ where: { id: 1 } })
-
     await Promise.all([
       ...Cars.map((car) => profile.createCar(car)),
       ...TrustedBuddies.map((buddy) => profile.createTrustedbuddy(buddy)),
       ...Card.map((card) => profile.createCard(card)),
     ])
 
-    response.status(201).json({ message: 'Profile created!' })
+    return response.status(201).json({ message: 'Profile created!' })
   } catch (err) {
     console.error(err)
-    response.status(400).json({ message: 'Failed to create profile', status: false })
+    return response.status(400).json({ message: 'Failed to create profile', status: false })
   }
 }
 

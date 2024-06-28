@@ -5,7 +5,7 @@ const { Op } = require('sequelize')
 const auths = require('../../middleware/auths')
 const jwt = require('jsonwebtoken')
 
-router.get('/', async (request, response) => {
+router.get('/', auths, async (request, response) => {
   try {
     const token = request.headers.authorization.split(' ')[1]
     const { userId: id, email } = jwt.decode(token)
@@ -15,15 +15,22 @@ router.get('/', async (request, response) => {
       attributes: ['lastName', 'firstName', 'city', 'state', 'id'],
     })
 
-    const driverNearby = await driver.findAll({
-      where: { city: userPassenger.city },
-      attributes: ['lastName', 'firstName', 'city', 'state', 'id'],
-    })
+    const driversNearby = Array.from(
+      await driver.findAll({
+        where: { city: userPassenger.city },
+        attributes: ['lastName', 'firstName', 'city', 'state', 'id'],
+        include: ['driverProfile'],
+      }),
+    )
+    // console.log(driversNearby)
 
-    console.log(driverNearby.__proto__)
-    const userPassengerProfile = await userPassenger.getProfile({ attributes: ['isVerified', 'profilePicture', 'id'] })
+    for (const driver of driversNearby) {
+      console.log(driver.toJSON())
+    }
+    // const userPassengerProfile = await userPassenger.getProfile({ attributes: ['isVerified', 'profilePicture', 'id'] })
+    // console.log(userPassengerProfile)
 
-    response.status(200).json({ message: 'OK', data: { user: userPassenger, driverNearby }, status: true })
+    return response.status(200).json({ message: 'OK', data: { user: userPassenger, driversNearby }, status: true })
   } catch (err) {
     console.log(err)
     response.status(403).json({ message: err.message, status: false })

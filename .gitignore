@@ -19,3 +19,5 @@ supabase
 payload.json
 schema.sql
 uploads
+.vercel
+vercel.json

@@ -1,5 +1,5 @@
 const { passengers } = require('../../models')
-const generateReferralCode = require('../../utils/generateReferralCode')
+
 
 module.exports = {
   userPassenger: async ({ email }) => {

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   card.init(
     {
       cardNumber: DataTypes.STRING,
-      expiryDate: DataTypes.DATE,
+      expiryDate: DataTypes.STRING,
       cvv: DataTypes.INTEGER,
       profileId: DataTypes.INTEGER,
       createdAt: {
