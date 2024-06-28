@@ -5,7 +5,7 @@
     "title": "REST API",
     "description": ""
   },
-  "host": "https://backend-ukbu.onrender.com/",
+  "host": "backend-ukbu.onrender.com",
   "basePath": "/",
   "schemes": ["https"],
   "paths": {
