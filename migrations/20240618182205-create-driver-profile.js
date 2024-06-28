@@ -15,7 +15,7 @@ module.exports = {
       },
       isVerified: {
         type: Sequelize.STRING,
-        defaultValue: false,
+        defaultValue: 'false',
       },
       driverId: {
         type: Sequelize.INTEGER,

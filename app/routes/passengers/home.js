@@ -15,17 +15,20 @@ router.get('/', auths, async (request, response) => {
       attributes: ['lastName', 'firstName', 'city', 'state', 'id'],
     })
 
-    const driversNearby = await driver.findAll({
-      where: { city: userPassenger.city },
-      attributes: ['lastName', 'firstName', 'city', 'state', 'id'],
-    })
+    const driversNearby = Array.from(
+      await driver.findAll({
+        where: { city: userPassenger.city },
+        attributes: ['lastName', 'firstName', 'city', 'state', 'id'],
+        include: ['driverProfile'],
+      }),
+    )
+    // console.log(driversNearby)
 
-    // for (const oneDriver of driversNearby) {
-    //   const driver = await oneDriver.getDriverProfile()
-    //   console.log(driver.__proto__)
-    // }
-
-    const userPassengerProfile = await userPassenger.getProfile({ attributes: ['isVerified', 'profilePicture', 'id'] })
+    for (const driver of driversNearby) {
+      console.log(driver.toJSON())
+    }
+    // const userPassengerProfile = await userPassenger.getProfile({ attributes: ['isVerified', 'profilePicture', 'id'] })
+    // console.log(userPassengerProfile)
 
     return response.status(200).json({ message: 'OK', data: { user: userPassenger, driversNearby }, status: true })
   } catch (err) {

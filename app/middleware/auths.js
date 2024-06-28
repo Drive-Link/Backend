@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken')
 
-module.exports = async (request, response, next) => {
+module.exports = async function (request, response, next) {
   if (!request.headers || !request.headers.authorization) {
-    response.status(401).json({ message: 'Access denied', status: false })
+    response.status(401).json({ message: 'Access denied, jwt token required!', status: false })
   } else {
     const [bearer, jwtKey] = request.headers.authorization.split(' ')
     const error = jwt.verify(jwtKey, process.env.SECRET_KEY, (error, _) => {

@@ -1,7 +1,6 @@
 const LoginDriverIn = require('../../services/drivers/login')
 
 const LoginDriver = async (request, response) => {
-  // TODO - login drivers
   try {
     const { email, password } = request.body
     const result = await LoginDriverIn({ email, password })

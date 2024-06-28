@@ -8,7 +8,9 @@ services:
 
     container_name: mysqldb-drivelink
     ports:
-      - "3306:3307"
+      - "3308:3306"
+    networks:
+      - drivelink
   app:
     build:
       context: ./
@@ -17,10 +19,11 @@ services:
       - /app/node_modules
     env_file:
        - ./.mysql.env
+
     container_name: drivelink
     tty: true
     ports:
-      - "80:80"
+      - "4000:4000"
       
     networks:
       - drivelink

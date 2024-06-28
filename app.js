@@ -33,7 +33,7 @@ app.use(cors({ origin: 'http://localhost:5000/', methods: 'GET', allowedHeaders:
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/api-docs', swagger)
-app.use('/api/v1/passenger/register/', passengerRegister)
+app.use('/api/v1/passenger/register', passengerRegister)
 app.use('/api/v1', passengerUpload)
 app.use('/api/v1/passenger/login', passengerLogin)
 app.use('/api/v1/driver/login', driverLogin)

@@ -6,9 +6,9 @@ COPY package.json yarn.lock ./
 
 RUN yarn install
 
-RUN npm run up
-
 COPY . .
+
+RUN npm run up
 
 EXPOSE 80
 

@@ -17,7 +17,7 @@ const upload = multer({
     const mimetype = filetypes.test(file.mimetype)
 
     if (mimetype) {
-      cb(null, false)
+      cb(null, true)
     } else {
       cb(null, false)
     }
@@ -25,7 +25,6 @@ const upload = multer({
 })
 
 module.exports = {
-  singleUpload: upload.single('file'),
   multipleUpload: upload.fields([
     { name: 'identificationCardBack', maxCount: 1 },
     { name: 'profilePicture', maxCount: 1 },

@@ -15,14 +15,19 @@ const CreateDriver = async (request, response) => {
       city,
     })
 
-
     response.status(200).json({
       message: 'Account created intiated. Head to profile endpoint to create your profile',
       data: { user: { userId, email, state, city } },
       status: true,
     })
   } catch (error) {
-    response.status(400).json({ code: 400, status: 'Bad Request', message: error.message })
+    let message = error.details?.[0].message || error?.errors?.[0].message
+    message = message.replaceAll('"', '')
+
+    const hint = message.includes('unique')
+      ? response.status(401).json({ status: false, message: 'Phonenumber or email taken' })
+      : response.status(401).json({ status: false, message })
+    return hint
   }
 }
 module.exports = CreateDriver

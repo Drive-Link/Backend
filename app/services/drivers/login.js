@@ -8,8 +8,6 @@ const LoginDriverIn = async function ({ email, password }) {
     attributes: ['email', 'id', 'city', 'phoneNumber', 'hash'],
   })
 
-  // const userDriverProfile = await userDriver.getDriverProfile()
-
   const { hash, email: driverEmail, city, phoneNumber, id: userId } = userDriver.toJSON()
 
   if (await bcrypt.compare(password, hash)) {

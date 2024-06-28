@@ -5,11 +5,9 @@
     "title": "REST API",
     "description": ""
   },
-  "host": "localhost:3000",
+  "host": "https://backend-ukbu.onrender.com/",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/api/v1/passenger/register/": {
       "post": {
@@ -61,6 +59,36 @@
     },
     "/api/v1/{role}/upload": {
       "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
         "description": "",
         "parameters": [
           {
@@ -290,8 +318,8 @@
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
