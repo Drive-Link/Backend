@@ -5,6 +5,15 @@ const jwt = require('jsonwebtoken')
 
 module.exports = {
   GetPassengerPersonalDetails: async (request, response) => {
+    // #swagger.autoHeaders = false
+
+    /* 
+    #swagger.tags = ['passenger']
+
+    #swagger.security = [{
+        passengerAuth: []
+    }] 
+    */
     try {
       const { getDetails } = request.params
       const token = request.headers.authorization.split(' ')[1]

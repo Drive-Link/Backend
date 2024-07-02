@@ -6,6 +6,13 @@ const auths = require('../../middleware/auths')
 const jwt = require('jsonwebtoken')
 
 router.get('/', auths, async (request, response) => {
+  /* 
+    #swagger.tags = ['passenger']
+
+    #swagger.security = [{
+        "apiKeyAuth": []
+    }] 
+    */
   try {
     const token = request.headers.authorization.split(' ')[1]
     const { userId: id, email } = jwt.decode(token)

@@ -9,7 +9,15 @@ const cloudinary = require('../config/cloudinary')
  */
 
 const storeFiles = async (request, response) => {
+  // #swagger.description = 'For both passenger and driver file uploads.'
   try {
+    /* 
+    #swagger.tags = ['passenger', 'driver]
+
+    #swagger.security = [{
+        "apiKeyAuth": []
+    }] 
+    */
     const token = request.headers.authorization.split(' ')[1]
     const { email } = jwt.decode(token)
     const role = request.params.role

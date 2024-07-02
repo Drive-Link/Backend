@@ -4,6 +4,13 @@ const { userPassenger } = require('../../services/passengers/profile')
 const generateToken = require('../../utils/generateReferralCode')
 
 const GetPassengerProfile = async (request, response) => {
+  /* 
+    #swagger.tags = ['passenger']
+
+    #swagger.security = [{
+        "apiKeyAuth": []
+    }] 
+    */
   try {
     const token = request.headers.authorization.split(' ')[1]
     const { email, scope } = jwt.decode(token, process.env.SECRET_KEY)

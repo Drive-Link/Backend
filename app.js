@@ -29,7 +29,7 @@ auth()
 app.use(morgan('dev'))
 app.use(express.json())
 app.use('/uploads', express.static('uploads'))
-app.use(cors({ origin: 'http://localhost:5000/', methods: 'GET', allowedHeaders: ['Content-Type', 'Authorization'] }))
+app.use(cors({ origin: 'http://localhost:4000/', methods: 'GET', allowedHeaders: ['Content-Type', 'Authorization'] }))
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/api-docs', swagger)

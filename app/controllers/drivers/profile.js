@@ -3,6 +3,13 @@ const { driver } = require('../../models')
 
 module.exports = {
   CreateDriverProfile: async (request, response) => {
+    /* 
+    #swagger.tags = ['driver']
+
+    #swagger.security = [{
+        "apiKeyAuth": []
+    }] 
+    */
     try {
       const { accounDetails } = request.body
       const { file } = request.files
@@ -14,6 +21,13 @@ module.exports = {
     }
   },
   GetDriverProfile: async (request, response) => {
+    /* 
+    #swagger.tags = ['driver']
+
+    #swagger.security = [{
+        "apiKeyAuth": []
+    }] 
+    */
     try {
       const token = request.headers.authorization.split(' ')[1]
       const { email } = jwt.decode(token)

@@ -1,6 +1,13 @@
 const { ResetPassword } = require('../../services/passengers/resetPassword')
 
 const ResetPassengersPassword = async function (request, response) {
+  /* 
+    #swagger.tags = ['passenger']
+
+    #swagger.security = [{
+        "apiKeyAuth": []
+    }] 
+    */
   const { email, phoneNumber = '' } = request.body
   try {
     const result = await ResetPassword({ email, phoneNumber })

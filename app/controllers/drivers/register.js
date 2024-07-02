@@ -1,6 +1,13 @@
 const CreateAndSaveDriver = require('../../services/drivers/register')
 
 const CreateDriver = async (request, response) => {
+  /* 
+    #swagger.tags = ['driver']
+
+    #swagger.security = [{
+        "apiKeyAuth": []
+    }] 
+    */
   try {
     const { email, city, country, state, shortBio, password, phoneNumber, lastName, firstName } = request.body
     const { id: userId } = await CreateAndSaveDriver({
