@@ -1,8 +1,6 @@
 node_modules/
 
 yarn.lock
-docker-compose.yaml
-dockerfile
 .prettierrc
 package-lock.json
 .vscode
@@ -15,3 +13,11 @@ swagger.py
 .dockerignore
 
 render.yaml
+.DS_Store
+supabase
+.eraserdiagram
+payload.json
+schema.sql
+uploads
+.vercel
+vercel.json

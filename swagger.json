@@ -1,54 +1,303 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
+    "title": "Backend APIs for Drivelink",
     "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "consumes": [
+      "application/json",
+      "multipart/form-data"
+    ],
+    "description": "API documentation for Drivelink",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "contact": {
+      "name": "Drivelink API Support",
+      "url": "https://www.example.com/support",
+      "email": "support@example.com"
+    }
   },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": [
-    "http"
+  "servers": [
+    {
+      "url": "http://localhost:4000",
+      "description": "localhost"
+    },
+    {
+      "url": "https://backend-ukbu.onrender.com/api-docs/",
+      "description": "online"
+    }
   ],
   "paths": {
     "/api/v1/passenger/register/": {
       "post": {
+        "tags": [
+          "passenger"
+        ],
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Some description...",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/drivers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Some description...",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/drivers"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "in": "body",
+          "description": "Route for register",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/passengers"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/passengers"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/{role}/upload": {
+      "post": {
+        "tags": [
+          "passenger"
+        ],
+        "description": "For both passenger and driver file uploads.",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "put": {
         "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
+            "name": "role",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "example": "any"
-                },
-                "lastName": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                },
-                "phoneNumber": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "country": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                },
-                "state": {
-                  "example": "any"
-                },
-                "shortBoi": {
-                  "example": "any"
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v1/passenger/login/": {
+      "post": {
+        "tags": [
+          "passenger"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Some description...",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseLogin"
                 }
               }
+            }
+          },
+          "401": {
+            "description": "Some description...",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/drivers"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/driver/login/": {
+      "post": {
+        "tags": [
+          "driver"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/passenger/reset_password/": {
+      "post": {
+        "tags": [
+          "passenger"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "phoneNumber": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/passengers/profile/": {
+      "get": {
+        "tags": [
+          "passenger"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -58,27 +307,519 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
-        }
-      },
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Cars": {
+                    "example": "any"
+                  },
+                  "TrustedBuddies": {
+                    "example": "any"
+                  },
+                  "Card": {
+                    "example": "any"
+                  },
+                  "shortBio": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/v1/login/": {
+    "/api/v1/driver/register/": {
       "post": {
+        "tags": [
+          "driver"
+        ],
         "description": "",
         "responses": {
-          "400": {
-            "description": "Bad Request"
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "city": {
+                    "example": "any"
+                  },
+                  "country": {
+                    "example": "any"
+                  },
+                  "state": {
+                    "example": "any"
+                  },
+                  "shortBio": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  },
+                  "phoneNumber": {
+                    "example": "any"
+                  },
+                  "lastName": {
+                    "example": "any"
+                  },
+                  "firstName": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
+    },
+    "/api/v1/passenger/{getDetails}": {
+      "get": {
+        "tags": [
+          "passenger"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "getDetails",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "passengerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/passenger/{newDetails}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "newDetails",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cars": {
+                    "example": "any"
+                  },
+                  "card": {
+                    "example": "any"
+                  },
+                  "trustedbuddies": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/passenger/{deleteDetails}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "deleteDetails",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "carName": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/passenger/{updateDetails}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "updateDetails",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cars": {
+                    "example": "any"
+                  },
+                  "card": {
+                    "example": "any"
+                  },
+                  "trustedbuddies": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/driver/profile/": {
+      "post": {
+        "tags": [
+          "driver"
+        ],
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accounDetails": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "driver"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/passengers/home/": {
+      "get": {
+        "tags": [
+          "passenger"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
     }
-  }
+  },
+  "components": {
+    "securitySchemes": {
+      "passengerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "driverAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "basicInfo": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Joe"
+          },
+          "password": {
+            "type": "string",
+            "example": "lol"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "example": "2348159655468"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          },
+          "country": {
+            "type": "string",
+            "example": "Nigeria"
+          },
+          "city": {
+            "type": "string",
+            "example": "lagos"
+          },
+          "state": {
+            "type": "string",
+            "example": "ikoyi"
+          }
+        },
+        "required": [
+          "password",
+          "phoneNumber",
+          "email"
+        ],
+        "xml": {
+          "name": "basicInfo"
+        }
+      },
+      "passengers": {
+        "xml": {
+          "name": "passengers"
+        },
+        "$ref": "#/components/schemas/basicInfo"
+      },
+      "drivers": {
+        "xml": {
+          "name": "drivers"
+        },
+        "$ref": "#/components/schemas/basicInfo"
+      },
+      "responseLogin": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Login Successful"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "any"
+                  },
+                  "phoneNumber": {
+                    "type": "string",
+                    "example": "any"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "passenger"
+                  },
+                  "accessToken": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoicGFzc2VuZ2VyIiwiZW1haWwiOiJhbnkiLCJ1c2VySWQiOjEsInBob25lTnVtYmVyIjoiYW55IiwiY2l0eSI6ImFueSIsImlhdCI6MTcxOTkzNjg0MCwiZXhwIjoxNzI3NzEyODQwfQ.OW3g1xbjcqejhWtON_X0UoWjZC31wAABqGzNFhGGRTM"
+                  }
+                }
+              }
+            }
+          },
+          "status": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "xml": {
+          "name": "responseLogin"
+        }
+      }
+    }
+  },
+  "autoBody": "false",
+  "baseUrl": "http://localhost",
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ]
 }

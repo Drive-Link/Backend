@@ -1,10 +1,9 @@
 const express = require('express')
 
-const { CreatePassanger, GetAllUserFromDatabase } = require('../controllers/passangers')
+const CreatePassanger = require('../../controllers/passengers/createPassenger')
 
 const router = express.Router()
 
 router.post('/', CreatePassanger)
-router.get('/', GetAllUserFromDatabase)
 
 module.exports = router
