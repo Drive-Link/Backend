@@ -19,9 +19,6 @@ module.exports = {
       referralCode: {
         type: Sequelize.STRING,
       },
-      shortBio: {
-        type: Sequelize.STRING,
-      },
       role: {
         type: Sequelize.STRING,
       },

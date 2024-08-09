@@ -2,11 +2,19 @@ const { LoginPassenger } = require('../../services/passengers/login')
 
 const LoginPassengerIn = async function (request, response) {
   /* 
-    #swagger.tags = ['passenger']
+        #swagger.tags = ['passenger']
 
-    #swagger.security = [{
-        "bearerAuth": []
-    }] 
+        #swagger.security = [{
+            "bearerAuth": []
+        }] 
+        #swagger.requestBody = {
+        required: true,
+        in: 'body',
+        description: 'Get passenger profile',
+        schema: {
+            $ref: '#/definitions/login'
+        }
+        }
     */
   const { email, password } = request.body
   try {

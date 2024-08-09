@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
       isVerified: DataTypes.STRING,
       referralCode: DataTypes.STRING,
       profilePicture: DataTypes.STRING,
-      shortBio: DataTypes.STRING,
       passengerId: DataTypes.INTEGER,
 
       role: DataTypes.STRING,

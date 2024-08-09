@@ -8,8 +8,6 @@ RUN yarn install
 
 COPY . .
 
-RUN npm run up
-
 EXPOSE 80
 
 CMD [ "npm", "start" ]

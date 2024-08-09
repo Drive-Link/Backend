@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 module.exports = async function (request, response, next) {
-  // #swagger.autoHeaders = false
+  // #swagger.autoHeader = false
   if (!request.headers || !request.headers.authorization) {
     response.status(401).json({ message: 'Access denied, jwt token required!', status: false })
   } else {

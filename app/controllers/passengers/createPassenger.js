@@ -8,7 +8,7 @@ const CreatePassanger = async function (request, response) {
     #swagger.security = [{
         "bearerAuth": []
     }] 
-    */
+  */
   // #swagger.autoBody = false
   /*  #swagger.requestBody = {
             required: true,
