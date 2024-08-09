@@ -24,7 +24,7 @@
       "description": "localhost"
     },
     {
-      "url": "https://backend-ukbu.onrender.com/api-docs/",
+      "url": "https://backend-ukbu.onrender.com/",
       "description": "online"
     }
   ],
@@ -167,18 +167,18 @@
           }
         ],
         "requestBody": {
+          "required": true,
+          "in": "body",
+          "description": "Get passenger profile",
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "example": "any"
-                  },
-                  "password": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/login"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
               }
             }
           }
@@ -203,24 +203,7 @@
           {
             "apiKeyAuth": []
           }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "example": "any"
-                  },
-                  "password": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
+        ]
       }
     },
     "/api/v1/passenger/reset_password/": {
@@ -241,24 +224,7 @@
           {
             "apiKeyAuth": []
           }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "example": "any"
-                  },
-                  "phoneNumber": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
+        ]
       }
     },
     "/api/v1/passengers/profile/": {
@@ -267,15 +233,6 @@
           "passenger"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -291,16 +248,10 @@
         ]
       },
       "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
+        "tags": [
+          "passenger"
         ],
+        "description": "",
         "responses": {
           "201": {
             "description": "Created"
@@ -312,25 +263,24 @@
             "description": "Unauthorized"
           }
         },
+        "security": [
+          {
+            "passengerAuth": []
+          }
+        ],
         "requestBody": {
+          "required": true,
+          "in": "body",
+          "description": "Create passenger profile",
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "Cars": {
-                    "example": "any"
-                  },
-                  "TrustedBuddies": {
-                    "example": "any"
-                  },
-                  "Card": {
-                    "example": "any"
-                  },
-                  "shortBio": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/passengersProfile"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/passengersProfile"
               }
             }
           }
@@ -355,45 +305,7 @@
           {
             "apiKeyAuth": []
           }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "example": "any"
-                  },
-                  "city": {
-                    "example": "any"
-                  },
-                  "country": {
-                    "example": "any"
-                  },
-                  "state": {
-                    "example": "any"
-                  },
-                  "shortBio": {
-                    "example": "any"
-                  },
-                  "password": {
-                    "example": "any"
-                  },
-                  "phoneNumber": {
-                    "example": "any"
-                  },
-                  "lastName": {
-                    "example": "any"
-                  },
-                  "firstName": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
+        ]
       }
     },
     "/api/v1/passenger/{getDetails}": {
@@ -444,13 +356,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "responses": {
@@ -465,26 +370,6 @@
           },
           "404": {
             "description": "Not Found"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "cars": {
-                    "example": "any"
-                  },
-                  "card": {
-                    "example": "any"
-                  },
-                  "trustedbuddies": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -500,13 +385,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "responses": {
@@ -525,23 +403,6 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "carName": {
-                    "example": "any"
-                  },
-                  "name": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
         }
       }
     },
@@ -553,13 +414,6 @@
             "name": "updateDetails",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
             "schema": {
               "type": "string"
             }
@@ -577,26 +431,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "cars": {
-                    "example": "any"
-                  },
-                  "card": {
-                    "example": "any"
-                  },
-                  "trustedbuddies": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -619,36 +453,13 @@
           {
             "apiKeyAuth": []
           }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "accounDetails": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
+        ]
       },
       "get": {
         "tags": [
           "driver"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -670,15 +481,6 @@
           "passenger"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -692,7 +494,7 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "passengerAuth": []
           }
         ]
       }
@@ -811,6 +613,105 @@
         },
         "xml": {
           "name": "responseLogin"
+        }
+      },
+      "responseRegister": {
+        "type": "object",
+        "properties": {},
+        "xml": {
+          "name": "responseRegister"
+        }
+      },
+      "passengersProfile": {
+        "type": "object",
+        "properties": {
+          "Cars": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "carName": {
+                  "type": "string",
+                  "example": "Hunda"
+                },
+                "carBrand": {
+                  "type": "string",
+                  "example": "Toyota"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "SUV"
+                },
+                "plateNumber": {
+                  "type": "string",
+                  "example": "ABC123"
+                }
+              }
+            }
+          },
+          "Card": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cardNumber": {
+                  "type": "string",
+                  "example": "1234567890123456"
+                },
+                "cvv": {
+                  "type": "number",
+                  "example": 123
+                },
+                "expiryDate": {
+                  "type": "string",
+                  "example": "2022-12-31"
+                }
+              }
+            }
+          },
+          "TrustedBuddies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Isaac"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "isaac@gmail.com"
+                },
+                "phoneNumber": {
+                  "type": "string",
+                  "example": "08123456789"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "passengersProfile"
+        }
+      },
+      "login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "lol"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "xml": {
+          "name": "login"
         }
       }
     }

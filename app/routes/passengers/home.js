@@ -10,7 +10,7 @@ router.get('/', auths, async (request, response) => {
     #swagger.tags = ['passenger']
 
     #swagger.security = [{
-        "apiKeyAuth": []
+        "passengerAuth": []
     }] 
     */
   try {
@@ -29,7 +29,7 @@ router.get('/', auths, async (request, response) => {
         include: ['driverProfile'],
       }),
     )
-    // console.log(driversNearby)
+    console.log(driversNearby)
 
     for (const driver of driversNearby) {
       console.log(driver.toJSON())

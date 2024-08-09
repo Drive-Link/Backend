@@ -203,7 +203,6 @@ module.exports = {
     try {
       const { updateDetails } = request.params
       const { cars, card, trustedbuddies } = request.body
-      // const email = 'any'
       const token = request.headers.authorization.split(' ')[1]
       const { email } = jwt.decode(token)
 

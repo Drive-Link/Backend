@@ -31,14 +31,29 @@ const GetPassengerProfile = async (request, response) => {
 // Create PasssengerProfile
 const CreateProfile = async (request, response) => {
   try {
-    const { Cars, TrustedBuddies, Card, shortBio } = request.body
+    /*
+
+  #swagger.tags = ['passenger']
+
+    #swagger.security = [{
+        "passengerAuth": []
+    }] 
+    #swagger.requestBody = {
+    required: true,
+    in: 'body',
+    description: 'Create passenger profile',
+    schema: {
+      $ref: '#/definitions/passengersProfile'
+    }
+   }
+  */
+    const { Cars, TrustedBuddies, Card } = request.body
 
     const userId = jwt.decode(request.headers.authorization.split(' ')[1]).userId
     const passenger = await passengers.findOne({ where: { id: userId } })
 
     const profile = await passenger.createProfile({
       role: 'passenger',
-      shortBio,
       referralCode: generateToken(7),
     })
 

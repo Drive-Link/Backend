@@ -1,4 +1,10 @@
-const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0' })
+const swaggerAutogen = require('swagger-autogen')({
+  openapi: '3.0.0',
+  autoHeaders: false,
+  disableLogs: false,
+  autoQuery: false,
+  autoBody: false,
+})
 const express = require('express')
 
 const router = express.Router()
@@ -29,7 +35,7 @@ const doc = {
       description: 'localhost',
     },
     {
-      url: 'https://backend-ukbu.onrender.com/api-docs/',
+      url: 'https://backend-ukbu.onrender.com/',
       description: 'online',
     },
   ],
@@ -66,6 +72,35 @@ const doc = {
         },
       },
       status: true,
+    },
+    responseRegister: {},
+    passengersProfile: {
+      Cars: [
+        {
+          carName: 'Hunda',
+          carBrand: 'Toyota',
+          type: 'SUV',
+          plateNumber: 'ABC123',
+        },
+      ],
+      Card: [
+        {
+          cardNumber: '1234567890123456',
+          cvv: 123,
+          expiryDate: '2022-12-31',
+        },
+      ],
+      TrustedBuddies: [
+        {
+          name: 'Isaac',
+          email: 'isaac@gmail.com',
+          phoneNumber: '08123456789',
+        },
+      ],
+    },
+    login: {
+      $email: 'test@test.com',
+      $password: 'lol',
     },
   },
 
