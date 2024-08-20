@@ -48,7 +48,7 @@ const doc = {
       lastName: 'Joe',
       $password: 'lol',
       $phoneNumber: '2348159655468',
-      $email: 'test@test.com',
+      $email: 'lild93078@gmail.com',
       country: 'Nigeria',
       city: 'lagos',
       state: 'ikoyi',
@@ -98,9 +98,22 @@ const doc = {
         },
       ],
     },
+    passengersNewDetails: {
+      Cars: [
+        {
+          carName: 'Hunda',
+          carBrand: 'Toyota',
+          type: 'SUV',
+          plateNumber: 'ABC123',
+        },
+      ],
+    },
     login: {
-      $email: 'test@test.com',
+      $email: 'lild93078@gmail.com',
       $password: 'lol',
+    },
+    resetPasswordPayload: {
+      $email: 'lild93078@gmail.com',
     },
   },
 

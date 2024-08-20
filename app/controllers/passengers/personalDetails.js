@@ -71,9 +71,10 @@ module.exports = {
   },
   CreatePersonalDetails: async (request, response) => {
     try {
+      //
       const { newDetails } = request.params
       const { cars, card, trustedbuddies } = request.body
-      // const email = 'any'
+
       const token = request.headers.authorization.split(' ')[1]
       const { email } = jwt.decode(token)
 

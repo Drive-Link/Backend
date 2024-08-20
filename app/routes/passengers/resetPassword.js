@@ -4,6 +4,6 @@ const ResetPassengersPassword = require('../../controllers/passengers/resetPassw
 
 const router = express.Router()
 
-router.post('/', checkAuth, ResetPassengersPassword)
+router.post('/', ResetPassengersPassword)
 
 module.exports = router

@@ -1,5 +1,6 @@
 const { SavePassanger } = require('../../services/passengers/register')
 const jwt = require('jsonwebtoken')
+const mailing = require('../../config/emailing')
 
 const CreatePassanger = async function (request, response) {
   /* 
@@ -42,6 +43,7 @@ const CreatePassanger = async function (request, response) {
     const access_token = jwt.sign({ scope: 'identity_update', email, userId, role }, process.env.SECRET_KEY, {
       expiresIn: '10h',
     })
+
     /* #swagger.responses[201] = {
             description: "Some description...",
             content: {
@@ -53,6 +55,7 @@ const CreatePassanger = async function (request, response) {
             }
         }   
     */
+    mailing({ to: email, subject: 'Register', templateName: 'welcome', data: { okay: 'welcome' } })
 
     response
       .status(201)

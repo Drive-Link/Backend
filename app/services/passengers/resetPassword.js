@@ -1,5 +1,6 @@
 const db = require('../../models')
-const jwt = require('jsonwebtoken')
+const client = require('../../config/redis')
+const mailing = require('../../config//emailing')
 
 /**
  *
@@ -13,7 +14,25 @@ const ResetPassword = async function ({ email }) {
       dataValues: { email: customer_email, city, firstName, lastName },
     } = await db.passengers.findOne({ where: { email }, attributes: ['city', 'firstName', 'lastName', 'email'] })
 
-    const token = jwt.sign({ customer_email, city, firstName, lastName }, process.env.SECRET_KEY, { expiresIn: '10m' })
+    const generateRandomNumber = () => {
+      const randomNumber = Math.floor(Math.random() * 1000000)
+      return String(randomNumber).padStart(6, '0')
+    }
+
+    const token = generateRandomNumber()
+
+    client.setEx(token, 60 * 10, customer_email)
+
+    console.log(
+      await mailing({
+        to: customer_email,
+        subject: 'Reset Password',
+        templateName: 'resetPassword.ejs',
+        data: { token, email: customer_email },
+      }),
+    )
+
+    return { message: 'check email for further procedure' }
   }
 
   return { message: 'check email for further procedure' }
