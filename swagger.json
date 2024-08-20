@@ -242,6 +242,34 @@
             }
           }
         }
+      },
+      "put": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "in": "body",
+          "description": "Update password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordPayload"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordPayload"
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/passengers/profile/": {
@@ -637,6 +665,31 @@
         "properties": {},
         "xml": {
           "name": "responseRegister"
+        }
+      },
+      "UpdatePasswordPayload": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "number",
+            "example": 250700
+          },
+          "password": {
+            "type": "string",
+            "example": "lolz"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": "lolz"
+          }
+        },
+        "required": [
+          "token",
+          "password",
+          "confirmPassword"
+        ],
+        "xml": {
+          "name": "UpdatePasswordPayload"
         }
       },
       "passengersProfile": {

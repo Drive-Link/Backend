@@ -1,6 +1,7 @@
 const db = require('../../models')
 const client = require('../../config/redis')
 const mailing = require('../../config//emailing')
+const bcrypt = require('bcryptjs')
 
 /**
  *
@@ -37,5 +38,23 @@ const ResetPassword = async function ({ email }) {
 
   return { message: 'check email for further procedure' }
 }
+const ChangePasswordHandler = async function ({ token, password, confirmPassword }) {
+  const customer_email = await client.get(String(token))
 
-module.exports = { ResetPassword }
+  if (customer_email) {
+    await db.passengers.update(
+      {
+        hash: await bcrypt.hash(password, 10),
+      },
+      { where: { email: customer_email } },
+    )
+
+    await client.del(String(token))
+
+    return { message: 'Password changed successfully' }
+  }
+
+  return { status: false, message: 'Token expired or invalid' }
+}
+
+module.exports = { ResetPassword, ChangePasswordHandler }

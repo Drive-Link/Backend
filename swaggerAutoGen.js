@@ -74,6 +74,11 @@ const doc = {
       status: true,
     },
     responseRegister: {},
+    UpdatePasswordPayload: {
+      $token: 250700,
+      $password: 'lolz',
+      $confirmPassword: 'lolz',
+    },
     passengersProfile: {
       Cars: [
         {

@@ -55,7 +55,7 @@ const CreatePassanger = async function (request, response) {
             }
         }   
     */
-    mailing({ to: email, subject: 'Register', templateName: 'welcome', data: { okay: 'welcome' } })
+    await mailing({ to: email, subject: 'Register', templateName: 'welcome.ejs', data: { firstName } })
 
     response
       .status(201)

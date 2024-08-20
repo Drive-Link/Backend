@@ -1,4 +1,4 @@
-const { ResetPassword } = require('../../services/passengers/resetPassword')
+const { ResetPassword, ChangePasswordHandler } = require('../../services/passengers/resetPassword')
 
 const ResetPassengersPassword = async function (request, response) {
   /* 
@@ -29,4 +29,25 @@ const ResetPassengersPassword = async function (request, response) {
   }
 }
 
-module.exports = ResetPassengersPassword
+const ChangePassword = async function (request, response) {
+  /*
+   #swagger.requestBody = {
+    required: true,
+    in: 'body',
+    description: 'Update password',
+    schema: {
+      $ref: '#/definitions/UpdatePasswordPayload'
+    }
+   }
+  */
+  const { token, password, confirmPassword } = request.body
+  try {
+    const result = await ChangePasswordHandler({ token, password, confirmPassword })
+    response.status(200).json({ message: 'success', result })
+  } catch (err) {
+    console.log(err)
+    response.status(401).json({ message: 'Unauthorized' })
+  }
+}
+
+module.exports = { ResetPassengersPassword, ChangePassword }
