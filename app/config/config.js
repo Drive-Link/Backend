@@ -5,7 +5,7 @@ module.exports = {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME && 'drive_link',
-    host: process.env.DB_HOST || 'host.docker.internal',
+    host: process.env.DB_HOST && 'host.docker.internal',
     dialect: 'mysql',
     port: process.env.DB_PORT,
   },
