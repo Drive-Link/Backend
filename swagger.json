@@ -224,7 +224,52 @@
           {
             "apiKeyAuth": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "in": "body",
+          "description": "Create passenger profile",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/resetPasswordPayload"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/resetPasswordPayload"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "in": "body",
+          "description": "Update password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordPayload"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordPayload"
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/passengers/profile/": {
@@ -533,7 +578,7 @@
           },
           "email": {
             "type": "string",
-            "example": "test@test.com"
+            "example": "lild93078@gmail.com"
           },
           "country": {
             "type": "string",
@@ -622,6 +667,31 @@
           "name": "responseRegister"
         }
       },
+      "UpdatePasswordPayload": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "number",
+            "example": 250700
+          },
+          "password": {
+            "type": "string",
+            "example": "lolz"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "example": "lolz"
+          }
+        },
+        "required": [
+          "token",
+          "password",
+          "confirmPassword"
+        ],
+        "xml": {
+          "name": "UpdatePasswordPayload"
+        }
+      },
       "passengersProfile": {
         "type": "object",
         "properties": {
@@ -694,12 +764,44 @@
           "name": "passengersProfile"
         }
       },
+      "passengersNewDetails": {
+        "type": "object",
+        "properties": {
+          "Cars": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "carName": {
+                  "type": "string",
+                  "example": "Hunda"
+                },
+                "carBrand": {
+                  "type": "string",
+                  "example": "Toyota"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "SUV"
+                },
+                "plateNumber": {
+                  "type": "string",
+                  "example": "ABC123"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "passengersNewDetails"
+        }
+      },
       "login": {
         "type": "object",
         "properties": {
           "email": {
             "type": "string",
-            "example": "test@test.com"
+            "example": "lild93078@gmail.com"
           },
           "password": {
             "type": "string",
@@ -712,6 +814,21 @@
         ],
         "xml": {
           "name": "login"
+        }
+      },
+      "resetPasswordPayload": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "lild93078@gmail.com"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "xml": {
+          "name": "resetPasswordPayload"
         }
       }
     }
