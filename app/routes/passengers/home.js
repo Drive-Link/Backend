@@ -5,7 +5,7 @@ const { Op } = require('sequelize')
 const auths = require('../../middleware/auths')
 const jwt = require('jsonwebtoken')
 
-router.get('/', auths, async (request, response) => {
+router.get('/', auths.verifyPassengerAndDriver, async (request, response) => {
   /* 
     #swagger.tags = ['passenger']
 
@@ -29,7 +29,7 @@ router.get('/', auths, async (request, response) => {
         include: ['driverProfile'],
       }),
     )
-    console.log(driversNearby)
+    // console.log(driversNearby)
 
     for (const driver of driversNearby) {
       console.log(driver.toJSON())

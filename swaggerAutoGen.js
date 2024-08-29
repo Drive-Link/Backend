@@ -2,7 +2,7 @@ const swaggerAutogen = require('swagger-autogen')({
   openapi: '3.0.0',
   autoHeaders: false,
   disableLogs: false,
-  autoQuery: false,
+  // autoQuery: false,
   autoBody: false,
 })
 const express = require('express')
@@ -120,6 +120,10 @@ const doc = {
     resetPasswordPayload: {
       $email: 'lild93078@gmail.com',
     },
+    adminLogin: {
+      $email: 'drivelink@gmail.com',
+      $password: 'drivelink@90',
+    },
   },
 
   components: {
@@ -129,6 +133,10 @@ const doc = {
         scheme: 'bearer',
       },
       driverAuth: {
+        type: 'http',
+        scheme: 'bearer',
+      },
+      adminAuth: {
         type: 'http',
         scheme: 'bearer',
       },
