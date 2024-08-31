@@ -14,6 +14,8 @@ const passengerUpload = require('./app/routes/uploads')
 const carDetails = require('./app/routes/passengers/personalDetails')
 const passengerHome = require('./app/routes/passengers/home')
 const driverProfile = require('./app/routes/drivers/profile')
+const admin = require('./app/routes/admin/login')
+const fetch = require('./app/routes/admin/fetch')
 
 const auth = async () => {
   try {
@@ -49,5 +51,7 @@ app.use('/api/v1/driver/register', driverRegister)
 app.use('/api/v1/passenger', carDetails)
 app.use('/api/v1/driver/profile', driverProfile)
 app.use('/api/v1/passengers/home', passengerHome)
+app.use('/api/v1', admin)
+app.use('/', fetch)
 
 module.exports = app

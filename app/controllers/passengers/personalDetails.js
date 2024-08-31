@@ -5,8 +5,6 @@ const jwt = require('jsonwebtoken')
 
 module.exports = {
   GetPassengerPersonalDetails: async (request, response) => {
-    // #swagger.autoHeaders = false
-
     /* 
     #swagger.tags = ['passenger']
 
