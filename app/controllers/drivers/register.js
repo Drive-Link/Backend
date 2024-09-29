@@ -7,7 +7,16 @@ const CreateDriver = async (request, response) => {
     #swagger.security = [{
         "apiKeyAuth": []
     }] 
-    */
+  */
+  /*  
+  #swagger.requestBody = {
+            required: true,
+            in: 'body',
+            description: 'Route for register',
+            schema: {
+                $ref: '#/definitions/passengers'
+        }
+    } */
   try {
     const { email, city, country, state, shortBio, password, phoneNumber, lastName, firstName } = request.body
     const { id: userId } = await CreateAndSaveDriver({

@@ -9,11 +9,11 @@ router.get('/api/v1/admin/@all', auth.verifyAdmin, async (request, response) => 
   try {
     const { user } = request.query
     if (user === 'passengers') {
-      const data = await db.passengers.findAll({ attributes: ['id', 'firstName', 'lastName', 'email'], limit: 10 })
+      const data = await db.passengers.findAll({ attributes: { exclude: ['hash'] }, limit: 10 })
       return response.status(200).json({ user, all: data })
     } else {
-      const data = await db.driver.findAll({ attributes: ['id', 'firstName', 'lastName', 'email'], limit: 10 })
-      return response.status(200).json({ user, all: data })
+      const data = await db.driver.findAll({ attributes: { exclude: ['hash'] }, limit: 10 })
+      return response.status(200).json({ status: true, message: `All `, user, all: data })
     }
   } catch (err) {
     response.status(401).json({ message: 'Invalid request', status: false })
@@ -37,11 +37,6 @@ router.delete('/api/v1/admin/user/:user', auth.verifyAdmin, async (request, resp
         type: sequelize.QueryTypes.DELETE,
       })
 
-      // console.log(passenger.toJSON())
-
-      //   const deletedPassenger = await passenger
-      //   console.log(deletedPassenger)
-
       return response.status(200).json({ message: 'Passenger deleted successfully', status: true })
     } else if (user === 'drivers') {
       const driver = await db.driver.findOne({ where: { email } })
@@ -60,7 +55,44 @@ router.delete('/api/v1/admin/user/:user', auth.verifyAdmin, async (request, resp
     }
   } catch (err) {
     console.log(err)
-    response.status(500).json({ message: '' })
+    response.status(400).json({ message: '' })
+  }
+})
+
+router.post('/validate-driver-details', auth.verifyAdmin, async (request, response) => {})
+
+router.get('/fetch-by-id', auth.verifyAdmin, async (request, response) => {})
+
+router.get('/api/v1/admin/dashboard', auth.verifyAdmin, async (req, res) => {
+  try {
+    const passengers = await db.passengers.count()
+    const drivers = await db.driver.count()
+
+    const { count: unVerifiedUsersCount, rows: unVerifiedUsers } = await db.driverProfile.findAndCountAll({
+      where: { isVerified: 'false' },
+      attributes: { exclude: ['hash'] },
+      include: [{ model: db.driver }],
+    })
+
+    const { count: declinedUserCount, rows: declinedUsers } = await db.driverProfile.findAndCountAll({
+      where: { isVerified: 'decline' },
+      attributes: { exclude: ['hash'] },
+      include: [{ model: db.driver }],
+    })
+
+    res.status(200).json({
+      status: true,
+      message: 'Dashboard',
+      data: {
+        passengers,
+        drivers,
+        unVerifiedDriverCountAndUser: { unVerifiedUsersCount, unVerifiedUsers },
+        declinedDriverCountAndUser: { declinedUserCount, declinedUsers },
+      },
+    })
+  } catch (err) {
+    console.log(err)
+    res.status(400).json({ status: false, message: 'Error fetching data' })
   }
 })
 

@@ -31,7 +31,6 @@ router.post('/admin/login', async function (request, response) {
         user: {
           userId: 1,
           email: adminEmail,
-          // phoneNumber: '2348159655468',
           role: 'admin',
           accessToken,
         },

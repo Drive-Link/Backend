@@ -1,9 +1,9 @@
-const { driver } = require('../../models')
+const db = require('../../models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 const LoginDriverIn = async function ({ email, password }) {
-  const userDriver = await driver.findOne({
+  const userDriver = await db.driver.findOne({
     where: { email },
     attributes: ['email', 'id', 'city', 'phoneNumber', 'hash'],
   })
