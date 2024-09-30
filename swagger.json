@@ -37,31 +37,12 @@
         "description": "",
         "responses": {
           "201": {
-            "description": "Some description...",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/drivers"
-                }
-              }
-            }
+            "description": "Created"
           },
           "400": {
-            "description": "Some description...",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/drivers"
-                }
-              }
-            }
+            "description": "Bad Request"
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "requestBody": {
           "required": true,
           "in": "body",
@@ -109,6 +90,9 @@
         ]
       },
       "put": {
+        "tags": [
+          "passenger"
+        ],
         "description": "",
         "parameters": [
           {
@@ -130,7 +114,12 @@
           "401": {
             "description": "Unauthorized"
           }
-        }
+        },
+        "security": [
+          {
+            "passengerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/passenger/login/": {
@@ -141,31 +130,12 @@
         "description": "",
         "responses": {
           "200": {
-            "description": "Some description...",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/responseLogin"
-                }
-              }
-            }
+            "description": "OK"
           },
           "401": {
-            "description": "Some description...",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/drivers"
-                }
-              }
-            }
+            "description": "Unauthorized"
           }
         },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
         "requestBody": {
           "required": true,
           "in": "body",
@@ -194,16 +164,25 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
           }
         },
-        "security": [
-          {
-            "apiKeyAuth": []
+        "requestBody": {
+          "required": true,
+          "in": "body",
+          "description": "Login driver",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/login"
+              }
+            }
           }
-        ]
+        }
       }
     },
     "/api/v1/passenger/reset_password/": {
@@ -288,7 +267,7 @@
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "passengerAuth": []
           }
         ]
       },
@@ -350,7 +329,24 @@
           {
             "apiKeyAuth": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "in": "body",
+          "description": "Route for register",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/passengers"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/passengers"
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/passenger/{getDetails}": {
@@ -392,6 +388,9 @@
     },
     "/api/v1/passenger/{newDetails}": {
       "post": {
+        "tags": [
+          "passenger"
+        ],
         "description": "",
         "parameters": [
           {
@@ -416,11 +415,19 @@
           "404": {
             "description": "Not Found"
           }
-        }
+        },
+        "security": [
+          {
+            "passengerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/passenger/{deleteDetails}": {
       "delete": {
+        "tags": [
+          "passenger"
+        ],
         "description": "",
         "parameters": [
           {
@@ -448,11 +455,19 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "passengerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/passenger/{updateDetails}": {
       "put": {
+        "tags": [
+          "passenger"
+        ],
         "description": "",
         "parameters": [
           {
@@ -477,7 +492,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "passengerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/driver/profile/": {
@@ -492,13 +512,33 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "driverAuth": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "in": "body",
+          "description": "Create driver profile",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/accountDetails"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/accountDetails"
+              }
+            }
+          }
+        }
       },
       "get": {
         "tags": [
@@ -511,11 +551,14 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "security": [
           {
-            "apiKeyAuth": []
+            "driverAuth": []
           }
         ]
       }
@@ -577,6 +620,9 @@
     },
     "/api/v1/admin/@all": {
       "get": {
+        "tags": [
+          "admin"
+        ],
         "description": "",
         "parameters": [
           {
@@ -604,6 +650,9 @@
     },
     "/api/v1/admin/user/{user}": {
       "delete": {
+        "tags": [
+          "admin"
+        ],
         "description": "",
         "parameters": [
           {
@@ -631,6 +680,30 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "adminAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/admin/dashboard": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -952,6 +1025,26 @@
         ],
         "xml": {
           "name": "adminLogin"
+        }
+      },
+      "accountDetails": {
+        "type": "object",
+        "properties": {
+          "accountName": {
+            "type": "string",
+            "example": "Adebayo Ayomide"
+          },
+          "bankName": {
+            "type": "string",
+            "example": "OPAY"
+          },
+          "accountNumber": {
+            "type": "string",
+            "example": "9023228899"
+          }
+        },
+        "xml": {
+          "name": "accountDetails"
         }
       }
     }

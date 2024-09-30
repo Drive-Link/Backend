@@ -1,7 +1,14 @@
 const jwt = require('jsonwebtoken')
 
 module.exports = {
-  verifyPassengerAndDriver: function (request, response, next) {
+  verifyPassenger: function (request, response, next) {
+    /* 
+    #swagger.tags = ['passenger']
+
+    #swagger.security = [{
+        "passengerAuth": []
+    }] 
+    */
     if (!request.headers || !request.headers.authorization) {
       response.status(401).json({ message: 'Access denied, jwt token required!', status: false })
     } else {
@@ -22,10 +29,11 @@ module.exports = {
   verifyAdmin: function (request, response, next) {
     /* 
 
+    #swagger.tags = ['admin']
 
-    #swagger.security = [{
-        adminAuth: []
-    }] 
+      #swagger.security = [{
+          adminAuth: []
+      }] 
     */
     if (!request.headers || !request.headers.authorization) {
       response.status(401).json({ message: 'Access denied, jwt token required!', status: false })
@@ -35,7 +43,6 @@ module.exports = {
       const [error, role] = jwt.verify(jwtKey, process.env.SECRET_KEY, (error, { role }) => {
         return [error, role]
       })
-      console.log(role)
       if (bearer !== 'Bearer' || error) {
         response.status(401).json({
           message: error?.message?.includes('expired') ? 'Token expired' : 'Invalid token',
@@ -44,6 +51,32 @@ module.exports = {
       } else if (role !== 'admin') {
         response.status(401).json({
           message: "You don't access to this resources",
+          status: false,
+        })
+      } else {
+        next()
+      }
+    }
+  },
+  verifyDriver(request, response, next) {
+    /* 
+
+      #swagger.tags = ['driver']
+      
+      #swagger.security = [{
+        driverAuth: []
+      }] 
+    */
+    if (!request.headers || !request.headers.authorization) {
+      response.status(401).json({ message: 'Access denied, jwt token required!', status: false })
+    } else {
+      const [bearer, jwtKey] = request.headers.authorization.split(' ')
+      const error = jwt.verify(jwtKey, process.env.SECRET_KEY, (error, _) => {
+        return error
+      })
+      if (bearer !== 'Bearer' || error) {
+        response.status(401).json({
+          message: error.message.includes('expired') ? 'Token expired' : 'Invalid token',
           status: false,
         })
       } else {

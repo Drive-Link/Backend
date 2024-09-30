@@ -4,13 +4,6 @@ const { userPassenger } = require('../../services/passengers/profile')
 const generateToken = require('../../utils/generateReferralCode')
 
 const GetPassengerProfile = async (request, response) => {
-  /* 
-    #swagger.tags = ['passenger']
-
-    #swagger.security = [{
-        "apiKeyAuth": []
-    }] 
-    */
   try {
     const token = request.headers.authorization.split(' ')[1]
     const { email, scope } = jwt.decode(token, process.env.SECRET_KEY)
@@ -32,12 +25,6 @@ const GetPassengerProfile = async (request, response) => {
 const CreateProfile = async (request, response) => {
   try {
     /*
-
-  #swagger.tags = ['passenger']
-
-    #swagger.security = [{
-        "passengerAuth": []
-    }] 
     #swagger.requestBody = {
     required: true,
     in: 'body',
@@ -49,8 +36,8 @@ const CreateProfile = async (request, response) => {
   */
     const { Cars, TrustedBuddies, Card } = request.body
 
-    const userId = jwt.decode(request.headers.authorization.split(' ')[1]).userId
-    const passenger = await passengers.findOne({ where: { id: userId } })
+    const userId = jwt.decode(request.headers.authorization.split(' ')[1])
+    const passenger = await passengers.findOne({ where: { id: userId.userId } })
 
     const profile = await passenger.createProfile({
       role: 'passenger',
