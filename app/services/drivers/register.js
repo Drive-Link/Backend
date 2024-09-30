@@ -14,6 +14,8 @@ const CreateAndSaveDriver = async ({
   city,
   country,
   state,
+  lat_coordinate, lon_coordinate
+
 }) => {
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
@@ -28,6 +30,8 @@ const CreateAndSaveDriver = async ({
     city,
     country,
     state,
+    lat_coordinate, lon_coordinate
+
   })
   await newDriver.createDriverProfile()
   return newDriver.toJSON()

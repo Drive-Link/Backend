@@ -11,6 +11,18 @@ services:
       - "3308:3306"
     networks:
       - drivelink
+
+
+
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - drivelink
+
   app:
     build:
       context: ./
@@ -18,13 +30,14 @@ services:
       - ./:/app
       - /app/node_modules
     env_file:
-       - ./.mysql.env
-
+      - ./.mysql.env
     container_name: drivelink
     tty: true
     ports:
       - "4000:4000"
-      
+    depends_on:
+      - db
+      - redis
     networks:
       - drivelink
 

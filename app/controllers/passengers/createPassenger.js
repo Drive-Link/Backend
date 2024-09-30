@@ -20,7 +20,7 @@ const CreatePassanger = async function (request, response) {
             }
     } */
 
-  const { firstName, lastName, password, phoneNumber, email, country, city, state } = request.body
+  const { firstName, lastName, password, phoneNumber, email, country, city, state, lat_coordinate, lon_coordinate } = request.body
 
   try {
     const {
@@ -37,6 +37,7 @@ const CreatePassanger = async function (request, response) {
         state,
         password,
         email,
+        lat_coordinate, lon_coordinate
       })
     ).toJSON()
 
@@ -63,8 +64,9 @@ const CreatePassanger = async function (request, response) {
   } catch (err) {
     console.log(err)
     let message = err.details?.[0].message || err?.errors?.[0].message
-    message = message.replaceAll('"', '')
-
+    if (message) {
+      message = message.replaceAll('"', '')
+    }
     const hint = message.includes('unique')
       ? response.status(400).json({ status: false, message: 'phoneNumber or email taken' })
       : response.status(400).json({ status: false, message })

@@ -9,7 +9,7 @@ const CreateDriver = async (request, response) => {
     }] 
     */
   try {
-    const { email, city, country, state, shortBio, password, phoneNumber, lastName, firstName } = request.body
+    const { email, city, country, state, shortBio, password, phoneNumber, lastName, firstName, lat_coordinate, lon_coordinate } = request.body
     const { id: userId } = await CreateAndSaveDriver({
       email,
       phoneNumber,
@@ -20,6 +20,7 @@ const CreateDriver = async (request, response) => {
       lastName,
       firstName,
       city,
+      lat_coordinate, lon_coordinate
     })
 
     response.status(200).json({

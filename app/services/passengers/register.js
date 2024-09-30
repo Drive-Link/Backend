@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const passangerSchema = require('../../../schemas/passangerSchema')
 
-const SavePassanger = async function ({ firstName, phoneNumber, city, lastName, state, password, country, email }) {
+const SavePassanger = async function ({ firstName, phoneNumber, city, lastName, state, password, country, email, lat_coordinate, lon_coordinate }) {
   // Validate input
   await passangerSchema.validateAsync({ firstName, lastName, phoneNumber, password, email })
 
@@ -17,6 +17,7 @@ const SavePassanger = async function ({ firstName, phoneNumber, city, lastName, 
     hash: await bcrypt.hash(password, bcrypt.genSaltSync(10)),
     city,
     country,
+    lat_coordinate, lon_coordinate
   })
 
   return result
