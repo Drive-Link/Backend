@@ -12,7 +12,11 @@ router.get('/api/v1/admin/@all', auth.verifyAdmin, async (request, response) => 
       const data = await db.passengers.findAll({ attributes: { exclude: ['hash'] }, limit: 10 })
       return response.status(200).json({ user, all: data })
     } else {
-      const data = await db.driver.findAll({ attributes: { exclude: ['hash'] }, limit: 10 })
+      const data = await db.driver.findAll({
+        attributes: { exclude: ['hash'] },
+        limit: 10,
+        include: [{ model: db.driverProfile, attributes: ['id', 'isVerified'] }],
+      })
       return response.status(200).json({ status: true, message: `All `, user, all: data })
     }
   } catch (err) {
@@ -59,9 +63,64 @@ router.delete('/api/v1/admin/user/:user', auth.verifyAdmin, async (request, resp
   }
 })
 
-router.post('/validate-driver-details', auth.verifyAdmin, async (request, response) => {})
+router.put('/api/v1/admin/validate-driver-details', auth.verifyAdmin, async (request, response) => {
+  /* 
+    #swagger.requestBody = {
+    required: true,
+    content: {
+      'application/json': {
+        schema: {
+          type: 'object',
+          properties: {
+            isVerified: { type: 'boolean' },
+            email: { type: 'string' },
+          },
+          required: ['isVerified', 'email'],
+        },
+      },
+    },
+    }
+  
+  */
+  try {
+    const { isVerified, email } = request.body
 
-router.get('/fetch-by-id', auth.verifyAdmin, async (request, response) => {})
+    const driverInfo = await db.driver.findOne({
+      where: { email },
+      include: [{ model: db.driverProfile }],
+    })
+
+    if (!driverInfo) {
+      return response.status(404).json({ message: 'Driver not found', status: false })
+    }
+
+    await driverInfo?.driverProfile.update({ isVerified })
+
+    response.status(200).json({ status: true, message: `Driver details ${isVerified}` })
+  } catch (err) {
+    console.log(err)
+    response.status(400).json({ message: err.message })
+  }
+})
+
+router.get('/fetch-by-id/:id', auth.verifyAdmin, async (request, response) => {
+  try {
+    const { id } = request.params
+
+    const driver = await db.driver.findByPk(id, {
+      include: [{ model: db.driverProfile, attributes: ['id', 'isVerified'] }],
+    })
+
+    if (!driver) {
+      return response.status(404).json({ message: 'Driver not found', status: false })
+    }
+
+    return response.status(200).json({ status: true, message: 'Driver details', driver })
+  } catch (err) {
+    console.log(err)
+    response.status(400).json({ message: err.message })
+  }
+})
 
 router.get('/api/v1/admin/dashboard', auth.verifyAdmin, async (req, res) => {
   try {

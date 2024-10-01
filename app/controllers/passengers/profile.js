@@ -6,11 +6,11 @@ const generateToken = require('../../utils/generateReferralCode')
 const GetPassengerProfile = async (request, response) => {
   try {
     const token = request.headers.authorization.split(' ')[1]
-    const { email, scope } = jwt.decode(token, process.env.SECRET_KEY)
+    const { email } = jwt.decode(token, process.env.SECRET_KEY)
 
     const passenger = await userPassenger({ email })
 
-    response.status(200).json({
+    return response.status(200).json({
       Passenger: passenger,
       Profile: await passenger.getProfile({ include: ['cars', 'card', 'trustedbuddies'] }),
       status: true,
@@ -21,7 +21,6 @@ const GetPassengerProfile = async (request, response) => {
   }
 }
 
-// Create PasssengerProfile
 const CreateProfile = async (request, response) => {
   try {
     /*
