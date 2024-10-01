@@ -5,10 +5,10 @@ const bcrypt = require('bcryptjs')
 const LoginDriverIn = async function ({ email, password }) {
   const userDriver = await db.driver.findOne({
     where: { email },
-    attributes: ['email', 'id', 'city', 'phoneNumber', 'hash'],
+    include: [{ model: db.driverProfile }],
   })
 
-  const { hash, email: driverEmail, city, phoneNumber, id: userId } = userDriver.toJSON()
+  const { hash, email: driverEmail, city, phoneNumber, id: userId, lastName, firstName } = userDriver.toJSON()
 
   if (await bcrypt.compare(password, hash)) {
     const accessToken = jwt.sign({ role: 'driver', email, userId, phoneNumber }, process.env.SECRET_KEY, {
@@ -21,6 +21,8 @@ const LoginDriverIn = async function ({ email, password }) {
         user: {
           userId,
           email,
+          lastName,
+          firstName,
           city,
           role: 'driver',
           accessToken,
