@@ -8,7 +8,17 @@ const LoginDriverIn = async function ({ email, password }) {
     include: [{ model: db.driverProfile }],
   })
 
-  const { hash, email: driverEmail, city, phoneNumber, id: userId, lastName, firstName } = userDriver.toJSON()
+  const {
+    hash,
+    email: driverEmail,
+    city,
+    phoneNumber,
+    id: userId,
+    lastName,
+    firstName,
+    country,
+    state,
+  } = userDriver.toJSON()
 
   if (await bcrypt.compare(password, hash)) {
     const accessToken = jwt.sign({ role: 'driver', email, userId, phoneNumber }, process.env.SECRET_KEY, {
@@ -22,6 +32,8 @@ const LoginDriverIn = async function ({ email, password }) {
           userId,
           email,
           lastName,
+          state,
+          country,
           firstName,
           city,
           role: 'driver',
