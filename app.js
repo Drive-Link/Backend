@@ -16,6 +16,8 @@ const passengerHome = require('./app/routes/passengers/home')
 const driverProfile = require('./app/routes/drivers/profile')
 const admin = require('./app/routes/admin/login')
 const fetch = require('./app/routes/admin/fetch')
+const redis = require('redis');
+
 
 const auth = async () => {
   try {
@@ -25,6 +27,22 @@ const auth = async () => {
     console.error(error.message)
   }
 }
+
+
+
+// Create Redis client and connect to the Redis service in Docker Compose
+const redisClient = redis.createClient({
+  host: process.env.REDIS_HOST || 'redis',  // 'redis' refers to the Docker service name
+  port: process.env.REDIS_PORT || 6379,
+});
+
+redisClient.on('connect', () => {
+  console.log('Connected to Redis');
+});
+
+redisClient.on('error', (err) => {
+  console.error('Redis error', err);
+});
 
 auth()
 
@@ -49,7 +67,7 @@ app.use('/api/v1/passenger/reset_password', resetPassword)
 app.use('/api/v1/passengers/profile', passengerProfile)
 app.use('/api/v1/driver/register', driverRegister)
 app.use('/api/v1/passenger', carDetails)
-app.use('/api/v1/driver/profile', driverProfile)
+app.use('/api/v1/driver', driverProfile)
 app.use('/api/v1/passengers/home', passengerHome)
 app.use('/api/v1', admin)
 app.use('/', fetch)

@@ -61,6 +61,9 @@ module.exports = {
       })
     }
   },
+
+
+
   CreatePersonalDetails: async (request, response) => {
     try {
       //
@@ -122,6 +125,16 @@ module.exports = {
       })
     }
   },
+
+
+
+
+
+
+
+
+
+
   DeletePersonalDetails: async (request, response) => {
     try {
       const { deleteDetails } = request.params
@@ -192,6 +205,10 @@ module.exports = {
       })
     }
   },
+
+
+
+  
   UpdatePersonalDetails: async (request, response) => {
     try {
       const { updateDetails } = request.params

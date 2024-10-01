@@ -22,6 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       city: DataTypes.STRING,
       hash: DataTypes.STRING,
       phoneNumber: DataTypes.STRING,
+      lat_coordinate: DataTypes.STRING,
+      lon_coordinate: DataTypes.STRING,
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
