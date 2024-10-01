@@ -480,7 +480,7 @@
         }
       }
     },
-    "/api/v1/driver/profile/": {
+    "/api/v1/driver/": {
       "post": {
         "tags": [
           "driver"
@@ -499,7 +499,22 @@
             "apiKeyAuth": []
           }
         ]
-      },
+      }
+    },
+    "/api/v1/driver/profile": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/driver/all-drivers": {
       "get": {
         "tags": [
           "driver"
@@ -518,6 +533,141 @@
             "apiKeyAuth": []
           }
         ]
+      }
+    },
+    "/api/v1/driver/passengers/{passengerId}/closest-drivers": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "passengerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/driver/{passengerId}/{driverId}/send-request": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "passengerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "driverId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/driver/requests/{driverId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "driverId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/api/v1/driver/requests/accept/{RequestId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "RequestId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/driver/requests/cancel/{RequestId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "RequestId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
     },
     "/api/v1/passengers/home/": {
