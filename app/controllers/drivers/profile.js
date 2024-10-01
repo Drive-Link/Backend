@@ -52,13 +52,17 @@ const getPlaceName = async (lat, lon) => {
 
 module.exports = {
   CreateDriverProfile: async (request, response) => {
-    /* 
-    #swagger.tags = ['driver']
-
-    #swagger.security = [{
-        "apiKeyAuth": []
-    }] 
+    /*
+      #swagger.requestBody = {
+        required: true,
+        in: 'body',
+        description: 'Create driver profile',
+        schema: {
+          $ref: '#/definitions/accountDetails'
+        }
+      }
     */
+
     try {
       const { accounDetails } = request.body;
       const { file } = request.files;

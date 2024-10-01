@@ -113,6 +113,7 @@ const doc = {
         },
       ],
     },
+
     login: {
       $email: 'lild93078@gmail.com',
       $password: 'lol',
@@ -123,6 +124,11 @@ const doc = {
     adminLogin: {
       $email: 'drivelink@gmail.com',
       $password: 'drivelink@90',
+    },
+    accountDetails: {
+      accountName: 'Adebayo Ayomide',
+      bankName: 'OPAY',
+      accountNumber: '9023228899',
     },
   },
 

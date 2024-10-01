@@ -3,16 +3,12 @@ const router = express.Router()
 const auth = require('../../middleware/auths')
 const personalDetails = require('../../controllers/passengers/personalDetails')
 
-// GET route
-router.get('/:getDetails', auth.verifyPassengerAndDriver, personalDetails.GetPassengerPersonalDetails)
+router.get('/:getDetails', auth.verifyPassenger, personalDetails.GetPassengerPersonalDetails)
 
-// POST route
-router.post('/:newDetails', auth.verifyPassengerAndDriver, personalDetails.CreatePersonalDetails)
+router.post('/:newDetails', auth.verifyPassenger, personalDetails.CreatePersonalDetails)
 
-// DELETE route
-router.delete('/:deleteDetails', auth.verifyPassengerAndDriver, personalDetails.DeletePersonalDetails)
+router.delete('/:deleteDetails', auth.verifyPassenger, personalDetails.DeletePersonalDetails)
 
-// PUT route for updating details
-router.put('/:updateDetails', auth.verifyPassengerAndDriver, personalDetails.UpdatePersonalDetails)
+router.put('/:updateDetails', auth.verifyPassenger, personalDetails.UpdatePersonalDetails)
 
 module.exports = router

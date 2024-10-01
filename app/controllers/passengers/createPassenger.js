@@ -5,12 +5,8 @@ const mailing = require('../../config/emailing')
 const CreatePassanger = async function (request, response) {
   /* 
     #swagger.tags = ['passenger']
-
-    #swagger.security = [{
-        "bearerAuth": []
-    }] 
   */
-  // #swagger.autoBody = false
+
   /*  #swagger.requestBody = {
             required: true,
             in: 'body',
@@ -45,17 +41,6 @@ const CreatePassanger = async function (request, response) {
       expiresIn: '10h',
     })
 
-    /* #swagger.responses[201] = {
-            description: "Some description...",
-            content: {
-                "application/json": {
-                    schema:{
-                        $ref: "#/definitions/drivers"
-                    }
-                }           
-            }
-        }   
-    */
     await mailing({ to: email, subject: 'Register', templateName: 'welcome.ejs', data: { firstName } })
 
     response
@@ -70,17 +55,7 @@ const CreatePassanger = async function (request, response) {
     const hint = message.includes('unique')
       ? response.status(400).json({ status: false, message: 'phoneNumber or email taken' })
       : response.status(400).json({ status: false, message })
-    /* #swagger.responses[400] = {
-            description: "Some description...",
-            content: {
-                "application/json": {
-                    schema:{
-                        $ref: "#/definitions/drivers"
-                    }
-                }           
-            }
-        }   
-    */
+
     return hint
   }
 }

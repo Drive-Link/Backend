@@ -1,23 +1,17 @@
 const { Op } = require('sequelize')
-const { passengers } = require('../../models')
+const db = require('../../models')
 
 const jwt = require('jsonwebtoken')
 
 module.exports = {
   GetPassengerPersonalDetails: async (request, response) => {
-    /* 
-    #swagger.tags = ['passenger']
 
-    #swagger.security = [{
-        passengerAuth: []
-    }] 
-    */
     try {
       const { getDetails } = request.params
       const token = request.headers.authorization.split(' ')[1]
       const { email } = jwt.decode(token)
 
-      const userPassenger = await passengers.findOne({ where: { email }, attributes: ['id'] })
+      const userPassenger = await db.passengers.findOne({ where: { email }, attributes: ['id'] })
       if (!userPassenger) {
         return response.status(404).json({
           status: 'error',
@@ -79,7 +73,7 @@ module.exports = {
       const token = request.headers.authorization.split(' ')[1]
       const { email } = jwt.decode(token)
 
-      const userPassenger = await passengers.findOne({ where: { email }, attributes: ['id'] })
+      const userPassenger = await db.passengers.findOne({ where: { email }, attributes: ['id'] })
       if (!userPassenger) {
         return response.status(404).json({
           status: 'error',
@@ -149,7 +143,7 @@ module.exports = {
       const token = request.headers.authorization.split(' ')[1]
       const { email } = jwt.decode(token)
 
-      const userPassenger = await passengers.findOne({ where: { email } })
+      const userPassenger = await db.passengers.findOne({ where: { email } })
       if (!userPassenger) {
         return response.status(404).json({
           status: 'error',
@@ -222,7 +216,7 @@ module.exports = {
       const token = request.headers.authorization.split(' ')[1]
       const { email } = jwt.decode(token)
 
-      const userPassenger = await passengers.findOne({ where: { email }, attributes: ['id'] })
+      const userPassenger = await db.passengers.findOne({ where: { email }, attributes: ['id'] })
       if (!userPassenger) {
         return response.status(404).json({
           status: 'error',

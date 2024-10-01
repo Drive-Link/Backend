@@ -1,16 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const driveProfile = require('../../controllers/drivers/profile')
+const auth = require('../../middleware/auths')
+const driverProfile = require('../../controllers/drivers/profile')
 
-router.post('/', driveProfile.CreateDriverProfile)
+router.post('/', auth.verifyDriver, driverProfile.CreateDriverProfile)
 
-router.get('/profile', driveProfile.GetDriverProfile)
-router.get('/all-drivers', driveProfile.GetAllDrivers)
-router.get('/passengers/:passengerId/closest-drivers', driveProfile.GetClosestDrivers)
-router.post('/:passengerId/:driverId/send-request', driveProfile.sendRequest)
-router.get('/requests/:driverId', driveProfile.GetDriverRequests)
-router.get('/requests/accept/:RequestId', driveProfile.AcceptRequest)
-router.get('/requests/cancel/:RequestId', driveProfile.CancelRequest)
+router.get('/profile', driverProfile.GetDriverProfile)
+router.get('/all-drivers', driverProfile.GetAllDrivers)
+router.get('/passengers/:passengerId/closest-drivers', driverProfile.GetClosestDrivers)
+router.post('/:passengerId/:driverId/send-request', driverProfile.sendRequest)
+router.get('/requests/:driverId', driverProfile.GetDriverRequests)
+router.get('/requests/accept/:RequestId', driverProfile.AcceptRequest)
+router.get('/requests/cancel/:RequestId', driverProfile.CancelRequest)
 
 
  

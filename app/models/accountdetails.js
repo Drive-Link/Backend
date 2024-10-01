@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   accountDetails.init(
     {
-      isVerified: DataTypes.BOOLEAN,
+      isVerified: DataTypes.STRING,
       driverProfileId: DataTypes.INTEGER,
-      accontName: DataTypes.STRING,
+      accountName: DataTypes.STRING,
       bankName: DataTypes.STRING,
-      accountNumber: DataTypes.INTEGER,
+      accountNumber: DataTypes.STRING,
     },
     {
       sequelize,
