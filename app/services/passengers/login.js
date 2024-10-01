@@ -13,9 +13,10 @@ const bcrypt = require('bcryptjs')
 const LoginPassenger = async ({ email, password }) => {
   const userPassenger = await passengers.findOne({
     where: { email },
-    attributes: ['hash', 'email', 'city', 'phoneNumber', 'id', 'lastName', 'firstName'],
+    attributes: ['hash', 'email', 'city', 'phoneNumber', 'id', 'lastName', 'firstName', 'country', 'state'],
   })
-  const { hash, email: customer_email, phoneNumber, city, id: userId } = userPassenger.toJSON()
+
+  const { hash, email: customer_email, phoneNumber, city, id: userId, country, state } = userPassenger.toJSON()
 
   const expiresIn = '90d'
 
@@ -25,6 +26,9 @@ const LoginPassenger = async ({ email, password }) => {
       userId,
       email,
       phoneNumber,
+      country,
+      state,
+      city,
       role: 'passenger',
       lastName: userPassenger.lastName,
       firstName: userPassenger.firstName,
