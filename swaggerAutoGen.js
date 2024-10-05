@@ -57,7 +57,15 @@ const doc = {
       $ref: '#/definitions/basicInfo',
     },
     drivers: {
-      $ref: '#/definitions/basicInfo',
+      firstName: 'John',
+      lastName: 'Joe',
+      $password: 'lol',
+      $phoneNumber: '2348159655468',
+      $email: 'lild93078@gmail.com',
+      country: 'Nigeria',
+      city: 'lagos',
+      state: 'ikoyi',
+      shortBio: "I'm drivelink",
     },
     responseLogin: {
       message: 'Login Successful',

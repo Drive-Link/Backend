@@ -14,7 +14,7 @@ const CreateDriver = async (request, response) => {
             in: 'body',
             description: 'Route for register',
             schema: {
-                $ref: '#/definitions/passengers'
+                $ref: '#/definitions/drivers'
         }
     } */
   try {

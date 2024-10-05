@@ -337,12 +337,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/passengers"
+                "$ref": "#/components/schemas/drivers"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/passengers"
+                "$ref": "#/components/schemas/drivers"
               }
             }
           }
@@ -876,13 +876,21 @@
         }
       }
     },
-    "/fetch-by-id/{id}": {
+    "/fetch-by-id/{role}/{id}": {
       "get": {
         "tags": [
           "admin"
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "role",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -1006,10 +1014,53 @@
         "$ref": "#/components/schemas/basicInfo"
       },
       "drivers": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Joe"
+          },
+          "password": {
+            "type": "string",
+            "example": "lol"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "example": "2348159655468"
+          },
+          "email": {
+            "type": "string",
+            "example": "lild93078@gmail.com"
+          },
+          "country": {
+            "type": "string",
+            "example": "Nigeria"
+          },
+          "city": {
+            "type": "string",
+            "example": "lagos"
+          },
+          "state": {
+            "type": "string",
+            "example": "ikoyi"
+          },
+          "shortBio": {
+            "type": "string",
+            "example": "I'm drivelink"
+          }
+        },
+        "required": [
+          "password",
+          "phoneNumber",
+          "email"
+        ],
         "xml": {
           "name": "drivers"
-        },
-        "$ref": "#/components/schemas/basicInfo"
+        }
       },
       "responseLogin": {
         "type": "object",

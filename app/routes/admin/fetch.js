@@ -94,7 +94,7 @@ router.put('/api/v1/admin/validate-driver-details', auth.verifyAdmin, async (req
       return response.status(404).json({ message: 'Driver not found', status: false })
     }
 
-    await driverInfo?.driverProfile.update({ isVerified })
+    await driverInfo?.driverProfile.update({ isVerified: String(isVerified) })
 
     response.status(200).json({ status: true, message: `Driver details ${isVerified}` })
   } catch (err) {
@@ -103,12 +103,30 @@ router.put('/api/v1/admin/validate-driver-details', auth.verifyAdmin, async (req
   }
 })
 
-router.get('/fetch-by-id/:id', auth.verifyAdmin, async (request, response) => {
+router.get('/fetch-by-id/:role/:id', auth.verifyAdmin, async (request, response) => {
   try {
-    const { id } = request.params
+    const { id, role } = request.params
+    if (role === 'passenger') {
+      const passenger = await db.passengers.findByPk(id, {
+        attributes: { exclude: ['hash'] },
+        include: [{ model: db.profile }],
+      })
+
+      if (!passenger) {
+        return response.status(404).json({ message: 'Passenger not found', status: false })
+      }
+      return response.status(200).json({ status: true, message: 'Passenger details', passenger })
+    }
 
     const driver = await db.driver.findByPk(id, {
-      include: [{ model: db.driverProfile, attributes: ['id', 'isVerified'] }],
+      attributes: { exclude: ['hash'] },
+      include: [
+        {
+          model: db.driverProfile,
+          attributes: ['id', 'isVerified'],
+          include: [{ model: db.identificationCard }, { model: db.driverLicense }, { model: db.medicalReport }],
+        },
+      ],
     })
 
     if (!driver) {
